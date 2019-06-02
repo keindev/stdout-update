@@ -23,10 +23,10 @@
         "indicator",
         "progress"
     ],
-    "main": "lib/stdout-update.js",
-    "types": "lib/stdout-update.d.ts",
-    "unpkg": "lib/stdout-update.js",
-    "module": "lib/stdout-update.js",
+    "main": "lib/manager.js",
+    "types": "lib/manager.d.ts",
+    "unpkg": "lib/manager.js",
+    "module": "lib/manager.js",
     "repository": {
         "type": "git",
         "url": "https://github.com/keindev/stdout-update.git"
@@ -35,8 +35,13 @@
         "url": "https://github.com/keindev/stdout-update/issues"
     },
     "scripts": {
+        "clean": "rm -rf lib coverage",
+        "lint": "eslint src/**/*.ts",
+        "test": "exit 0",
         "debug": "node --nolazy --inspect-brk=9229 example/app.js",
-        "precommit": "exit 0"
+        "precommit": "exit 0",
+        "build:ts": "tsc",
+        "build": "npm-run-all clean test build:*"
     },
     "engines": {
         "node": ">=10.0.0"
