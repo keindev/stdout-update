@@ -23,7 +23,7 @@ export class Hook {
 
             if (typeof buffer === 'string') value = buffer;
             else if (Buffer.isBuffer(buffer)) value = buffer.toString(encoding);
-            else if (Array.isArray(buffer)) value = new TextDecoder().decode(buffer);
+            else if (buffer instanceof Uint8Array) value = new TextDecoder().decode(buffer);
 
             this.story.set(value, [encoding, callback]);
 
