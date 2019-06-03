@@ -1,12 +1,12 @@
-import readline from 'readline';
-import { WritableFunction, WritableData, WritableArgs, WritableCallback, WritableEncoding } from './types';
+import ansiEscapes from 'ansi-escapes';
+import * as Types from './types';
 
 export class Hook {
     public static DRAIN = true;
 
     private stream: NodeJS.WriteStream;
-    private method: WritableFunction;
-    private story: Map<string, [WritableEncoding, WritableCallback]> = new Map();
+    private method: Types.WritableFunction;
+    private story: Map<string, [Types.WritableEncoding, Types.WritableCallback]> = new Map();
 
     public constructor(stream: NodeJS.WriteStream) {
         this.method = stream.write;
@@ -14,9 +14,8 @@ export class Hook {
     }
 
     public active(): void {
-        this.stream.write = (buffer: WritableData, ...args: WritableArgs): boolean => {
-            // FIXME: write clear sequence
-            // call readline.XYZ calls this.stream.write hook! it's problem.
+        this.write(ansiEscapes.cursorHide);
+        this.stream.write = (buffer: Types.WritableData, ...args: Types.WritableArgs): boolean => {
             const last = args[args.length - 1];
             const callback = typeof last === 'function' ? last : undefined;
             const encoding = typeof args[0] === 'string' ? args[0] : undefined;
@@ -32,28 +31,28 @@ export class Hook {
         };
     }
 
-    public clear(lines: number): void {
-        if (this.stream.isTTY) {
-            // TODO: use moveCursorTo instead global moving with cursorTo
-            readline.cursorTo(this.stream, 0, 0);
-            readline.clearScreenDown(this.stream);
-            readline.cursorTo(this.stream, 0, 0);
-        }
-    }
-
-    public write(str: string, encoding?: WritableEncoding, callback?: WritableCallback): void {
-        this.method.apply(this.stream, [str, encoding, callback]);
-    }
-
     public inactive(): void {
+        const { story } = this;
+
+        if (story.size) {
+            story.forEach(
+                (args, buffer): void => {
+                    this.write(buffer, ...args);
+                }
+            );
+
+            story.clear();
+        }
+
         this.stream.write = this.method;
+        this.write(ansiEscapes.cursorShow);
+    }
 
-        this.story.forEach(
-            (args, buffer): void => {
-                this.write(buffer, ...args);
-            }
-        );
+    public clear(lines: number): void {
+        this.write(ansiEscapes.eraseLines(lines + 1));
+    }
 
-        this.story.clear();
+    public write(str: string, encoding?: Types.WritableEncoding, callback?: Types.WritableCallback): void {
+        this.method.apply(this.stream, [str, encoding, callback]);
     }
 }

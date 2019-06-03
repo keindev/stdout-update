@@ -9,8 +9,8 @@ export class UpdateManager {
     private lastLength: number = UpdateManager.DEFAULT_LENGTH;
     private isActive: boolean = false;
 
-    private constructor() {
-        this.hooks = [process.stdout, process.stderr].map((stream): Hook => new Hook(stream));
+    private constructor(streams = [process.stdout, process.stderr]) {
+        this.hooks = streams.map((stream): Hook => new Hook(stream));
     }
 
     public static getInstance(): UpdateManager {
@@ -24,26 +24,26 @@ export class UpdateManager {
     public hook(): void {
         if (!this.isActive) {
             this.hooks.forEach((hook): void => hook.active());
-            this.clean(true);
+            this.clear(true);
         }
     }
 
     public unhook(): void {
         if (this.isActive) {
             this.hooks.forEach((hook): void => hook.inactive());
-            this.clean();
+            this.clear();
         }
     }
 
-    public update(list: string[]): void {
+    public update(lines: string[], position: number = 0): void {
         const [hook] = this.hooks;
 
-        hook.clear(this.lastLength);
-        hook.write(list.join(UpdateManager.EOL) + UpdateManager.EOL);
-        this.lastLength = list.length;
+        hook.clear(Math.abs(position - this.lastLength));
+        hook.write(lines.join(UpdateManager.EOL) + UpdateManager.EOL);
+        this.lastLength = lines.length;
     }
 
-    private clean(status: boolean = false): void {
+    private clear(status: boolean = false): void {
         this.isActive = status;
         this.lastLength = UpdateManager.DEFAULT_LENGTH;
     }

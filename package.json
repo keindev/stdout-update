@@ -37,14 +37,17 @@
     "scripts": {
         "clean": "rm -rf lib coverage",
         "lint": "eslint src/**/*.ts",
-        "test": "exit 0",
+        "test": "jest",
         "debug": "node --nolazy --inspect-brk=9229 example/app.js",
-        "precommit": "exit 0",
+        "precommit": "npm-run-all clean test",
         "build:ts": "tsc",
         "build": "npm-run-all clean test build:*"
     },
     "engines": {
         "node": ">=10.0.0"
+    },
+    "dependencies": {
+        "ansi-escapes": "^4.1.0"
     },
     "devDependencies": {
         "@types/jest": "^24.0.13",
@@ -60,6 +63,7 @@
         "jest": "^24.8.0",
         "npm-run-all": "^4.1.5",
         "prettier": "^1.17.1",
+        "strip-ansi": "^5.2.0",
         "ts-jest": "^24.0.2",
         "typescript": "^3.5.1"
     }
