@@ -6,7 +6,7 @@ export class Hook {
 
     private stream: NodeJS.WriteStream;
     private method: Types.WritableFunction;
-    private story: Map<string, [Types.WritableEncoding, Types.WritableCallback]> = new Map();
+    private story: string[] = [];
 
     public constructor(stream: NodeJS.WriteStream) {
         this.method = stream.write;
@@ -16,16 +16,15 @@ export class Hook {
     public active(): void {
         this.write(ansiEscapes.cursorHide);
         this.stream.write = (buffer: Types.WritableData, ...args: Types.WritableArgs): boolean => {
-            const last = args[args.length - 1];
-            const callback = typeof last === 'function' ? last : undefined;
+            const { story } = this;
+            const callback = args[args.length - 1];
             const encoding = typeof args[0] === 'string' ? args[0] : undefined;
-            let value = '';
 
-            if (typeof buffer === 'string') value = buffer;
-            else if (Buffer.isBuffer(buffer)) value = buffer.toString(encoding);
-            else if (buffer instanceof Uint8Array) value = new TextDecoder().decode(buffer);
+            if (typeof callback === 'function') callback();
 
-            this.story.set(value, [encoding, callback]);
+            if (typeof buffer === 'string') story.push(new TextDecoder().decode(Buffer.from(buffer, encoding as any)));
+            else if (Buffer.isBuffer(buffer)) story.push(buffer.toString());
+            else if (buffer instanceof Uint8Array) story.push(new TextDecoder().decode(buffer));
 
             return Hook.DRAIN;
         };
@@ -34,14 +33,9 @@ export class Hook {
     public inactive(): void {
         const { story } = this;
 
-        if (story.size) {
-            story.forEach(
-                (args, buffer): void => {
-                    this.write(buffer, ...args);
-                }
-            );
-
-            story.clear();
+        if (story.length) {
+            story.forEach(this.write, this);
+            this.story = [];
         }
 
         this.stream.write = this.method;
@@ -52,7 +46,7 @@ export class Hook {
         this.write(ansiEscapes.eraseLines(lines + 1));
     }
 
-    public write(str: string, encoding?: Types.WritableEncoding, callback?: Types.WritableCallback): void {
-        this.method.apply(this.stream, [str, encoding, callback]);
+    public write(msg: string): void {
+        this.method.apply(this.stream, [msg]);
     }
 }
