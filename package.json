@@ -23,10 +23,10 @@
         "indicator",
         "progress"
     ],
-    "main": "lib/manager.js",
-    "types": "lib/manager.d.ts",
-    "unpkg": "lib/manager.js",
-    "module": "lib/manager.js",
+    "main": "lib/update-manager.js",
+    "types": "lib/update-manager.d.ts",
+    "unpkg": "lib/update-manager.js",
+    "module": "lib/update-manager.js",
     "repository": {
         "type": "git",
         "url": "https://github.com/keindev/stdout-update.git"

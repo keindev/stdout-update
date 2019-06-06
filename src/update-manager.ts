@@ -9,8 +9,8 @@ export class UpdateManager {
     private lastLength: number = UpdateManager.DEFAULT_LENGTH;
     private isActive: boolean = false;
 
-    private constructor(streams = [process.stdout, process.stderr]) {
-        this.hooks = streams.map((stream): Hook => new Hook(stream));
+    private constructor() {
+        this.hooks = [process.stdout, process.stderr].map((stream): Hook => new Hook(stream));
     }
 
     public static getInstance(): UpdateManager {
@@ -41,6 +41,10 @@ export class UpdateManager {
         hook.clear(Math.abs(position - this.lastLength));
         hook.write(lines.join(UpdateManager.EOL) + UpdateManager.EOL);
         this.lastLength = lines.length;
+    }
+
+    public isHooked(): boolean {
+        return this.isActive;
     }
 
     private clear(status: boolean = false): void {

@@ -1,3 +1,4 @@
+import { StringDecoder } from 'string_decoder';
 import ansiEscapes from 'ansi-escapes';
 import * as Types from './types';
 
@@ -5,6 +6,7 @@ export class Hook {
     public static DRAIN = true;
 
     private stream: NodeJS.WriteStream;
+    private decoder = new StringDecoder();
     private method: Types.WritableFunction;
     private story: string[] = [];
 
@@ -13,18 +15,23 @@ export class Hook {
         this.stream = stream;
     }
 
+    private static getBuffer(data: Types.WritableData, encoding: Types.WritableEncoding): Buffer {
+        if (typeof data === 'string') return Buffer.from(data, encoding as any);
+        if (data instanceof Uint8Array) return Buffer.from(data);
+
+        return data;
+    }
+
     public active(): void {
+        const { story, decoder } = this;
+
         this.write(ansiEscapes.cursorHide);
-        this.stream.write = (buffer: Types.WritableData, ...args: Types.WritableArgs): boolean => {
-            const { story } = this;
+        this.stream.write = (data: Types.WritableData, ...args: Types.WritableArgs): boolean => {
             const callback = args[args.length - 1];
-            const encoding = typeof args[0] === 'string' ? args[0] : undefined;
+
+            story.push(decoder.write(Hook.getBuffer(data, typeof args[0] === 'string' ? args[0] : undefined)));
 
             if (typeof callback === 'function') callback();
-
-            if (typeof buffer === 'string') story.push(new TextDecoder().decode(Buffer.from(buffer, encoding as any)));
-            else if (Buffer.isBuffer(buffer)) story.push(buffer.toString());
-            else if (buffer instanceof Uint8Array) story.push(new TextDecoder().decode(buffer));
 
             return Hook.DRAIN;
         };

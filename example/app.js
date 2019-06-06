@@ -1,4 +1,4 @@
-const { UpdateManager } = require('../lib/manager.js');
+const { UpdateManager } = require('../lib/update-manager');
 const manager = UpdateManager.getInstance();
 
 manager.hook();
