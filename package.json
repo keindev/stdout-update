@@ -1,0 +1,69 @@
+{
+    "name": "stdout-update",
+    "version": "0.9.0",
+    "description": "Updates the previous output in the terminal. Useful for correct rendering progress bars, animations, etc.",
+    "homepage": "https://github.com/keindev/stdout-update#readme",
+    "license": "MIT",
+    "author": "Daniil Ryazanov <opensource@tagproject.ru>",
+    "keywords": [
+        "log",
+        "logger",
+        "logging",
+        "shell",
+        "update",
+        "refresh",
+        "overwrite",
+        "output",
+        "cli",
+        "stdout",
+        "update",
+        "terminal",
+        "term",
+        "console",
+        "indicator",
+        "progress"
+    ],
+    "main": "lib/update-manager.js",
+    "types": "lib/update-manager.d.ts",
+    "unpkg": "lib/update-manager.js",
+    "module": "lib/update-manager.js",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/keindev/stdout-update.git"
+    },
+    "bugs": {
+        "url": "https://github.com/keindev/stdout-update/issues"
+    },
+    "scripts": {
+        "clean": "rm -rf lib coverage",
+        "lint": "eslint src/**/*.ts",
+        "test": "jest",
+        "debug": "node --nolazy --inspect-brk=9229 example/app.js",
+        "precommit": "npm-run-all clean test",
+        "build:ts": "tsc",
+        "build": "npm-run-all clean test build:*"
+    },
+    "engines": {
+        "node": ">=10.0.0"
+    },
+    "dependencies": {
+        "ansi-escapes": "^4.1.0"
+    },
+    "devDependencies": {
+        "@types/jest": "^24.0.13",
+        "@types/node": "^12.0.7",
+        "@typescript-eslint/eslint-plugin": "^1.10.1",
+        "@typescript-eslint/parser": "^1.10.1",
+        "eslint": "5.16.0",
+        "eslint-config-airbnb-base": "13.1.0",
+        "eslint-config-prettier": "^4.3.0",
+        "eslint-plugin-import": "^2.17.3",
+        "eslint-plugin-jest": "^22.6.4",
+        "husky": "^2.4.0",
+        "jest": "^24.8.0",
+        "npm-run-all": "^4.1.5",
+        "prettier": "^1.18.2",
+        "ts-jest": "^24.0.2",
+        "typescript": "^3.5.1"
+    }
+}
