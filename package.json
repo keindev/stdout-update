@@ -39,7 +39,7 @@
         "lint": "eslint src/**/*.ts",
         "test": "jest",
         "debug": "node --nolazy --inspect-brk=9229 example/app.js",
-        "precommit": "exit 0 npm-run-all clean test",
+        "precommit": "npm-run-all clean test",
         "build:ts": "tsc",
         "build": "npm-run-all clean test build:*"
     },
