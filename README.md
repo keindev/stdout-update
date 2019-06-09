@@ -1,4 +1,4 @@
-<p align="center"><img width="100%" src="./media/logo.svg" alt="stdout-update logo"></p>
+<p align="center"><img width="100%" src=src="https://cdn.jsdelivr.net/gh/keindev/stdout-update/media/logo.svg" alt="stdout-update logo"></p>
 
 <p align="center">
     <a href="https://travis-ci.org/keindev/stdout-update"><img src="https://travis-ci.org/keindev/stdout-update.svg?branch=master" alt="Build Status"></a>
