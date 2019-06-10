@@ -68,15 +68,15 @@ Hook stdout and stderr streams.
 
 Unhooks both stdout and stderr streams and print their story of logs.
 
-### update(lines, [position])
+### update(text, [position])
 
 Method to get the object to control the streams (`stdout`, `stderr`) update. Returns `UpdateManager` instance.
 
-#### lines
+#### text
 
-Type: `string[]`
+Type: `string`
 
-Lines to write to standard output.
+Text to write to standard output.
 
 #### position
 

@@ -35,12 +35,12 @@ export class UpdateManager {
         }
     }
 
-    public update(lines: string[], position: number = 0): void {
+    public update(text: string, position: number = 0): void {
         const [hook] = this.hooks;
 
         hook.clear(Math.abs(position - this.lastLength));
-        hook.write(lines.join(UpdateManager.EOL) + UpdateManager.EOL);
-        this.lastLength = lines.length;
+        hook.write(text + UpdateManager.EOL);
+        this.lastLength = text.split(UpdateManager.EOL).length;
     }
 
     public isHooked(): boolean {
