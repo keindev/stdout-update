@@ -10,7 +10,9 @@
 
 Purely and accurately overwrites the previous output in the terminal, while maintaining the history of third-party logs.
 
-<img src="media/demo.gif">
+<p align="center">
+    <img src="media/demo.gif">
+</p>
 
 ## Install
 
