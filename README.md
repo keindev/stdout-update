@@ -10,7 +10,9 @@
 
 Purely and accurately overwrites the previous output in the terminal, while maintaining the history of third-party logs.
 
-<img src="media/demo.gif">
+<p align="center">
+    <img src="media/demo.gif">
+</p>
 
 ## Install
 
@@ -29,7 +31,7 @@ const manager = UpdateManager.getInstance();
 const frames = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'];
 const messages = ['Swapping time and space...', 'Have a good day.', "Don't panic...", 'Updating Updater...', '42'];
 let i = (j = 0);
-let number = 60;
+let ticks = 60;
 
 manager.hook();
 
@@ -38,16 +40,16 @@ console.error(' - error message');
 console.warn(' - warn message');
 
 const id = setInterval(() => {
-    if (--number < 0) {
+    if (--ticks < 0) {
         clearInterval(id);
-        manager.update(['✔ Success']);
-        manager.update(['', 'Messages:'], 1);
+        manager.update('✔ Success');
+        manager.update(['', 'Messages:'].join(UpdateManager.EOL), 1);
         manager.unhook();
     } else {
         const frame = frames[(i = ++i % frames.length)];
-        const message = messages[(j = Math.round(number / 10) % messages.length)];
+        const message = messages[(j = Math.round(ticks / 10) % messages.length)];
 
-        manager.update([`${frame} Some process...`, message]);
+        manager.update([`${frame} Some process...`, message].join(UpdateManager.EOL));
     }
 }, 80);
 ```
@@ -66,15 +68,15 @@ Hook stdout and stderr streams.
 
 Unhooks both stdout and stderr streams and print their story of logs.
 
-### update(lines, [position])
+### update(text, [position])
 
 Method to get the object to control the streams (`stdout`, `stderr`) update. Returns `UpdateManager` instance.
 
-#### lines
+#### text
 
-Type: `string[]`
+Type: `string`
 
-Lines to write to standard output.
+Text to write to standard output.
 
 #### position
 
