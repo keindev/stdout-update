@@ -42,14 +42,14 @@ console.warn(' - warn message');
 const id = setInterval(() => {
     if (--number < 0) {
         clearInterval(id);
-        manager.update(['✔ Success']);
-        manager.update(['', 'Messages:'], 1);
+        manager.update('✔ Success');
+        manager.update(['', 'Messages:'].join(UpdateManager.EOL), 1);
         manager.unhook();
     } else {
         const frame = frames[(i = ++i % frames.length)];
         const message = messages[(j = Math.round(number / 10) % messages.length)];
 
-        manager.update([`${frame} Some process...`, message]);
+        manager.update([`${frame} Some process...`, message].join(UpdateManager.EOL));
     }
 }, 80);
 ```
