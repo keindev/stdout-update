@@ -13,6 +13,15 @@ describe('UpdateManager', (): void => {
         expect(manager.isHooked()).toBeTruthy();
     });
 
+    it('Update', (): void => {
+        expect(manager.isHooked()).toBeTruthy();
+
+        manager.update('test text');
+        manager.update('text test');
+
+        expect(manager.isHooked()).toBeTruthy();
+    });
+
     it('Unhook', (): void => {
         expect(manager.isHooked()).toBeTruthy();
 
