@@ -1,4 +1,5 @@
 import { Hook } from './hook';
+import { Terminal } from './terminal';
 
 export class UpdateManager {
     public static DEFAULT_LENGTH = 0;
@@ -8,6 +9,7 @@ export class UpdateManager {
     private hooks: Hook[];
     private lastLength: number = UpdateManager.DEFAULT_LENGTH;
     private isActive: boolean = false;
+    private terminal: Terminal = new Terminal();
 
     private constructor() {
         this.hooks = [process.stdout, process.stderr].map((stream): Hook => new Hook(stream));
@@ -21,11 +23,18 @@ export class UpdateManager {
         return UpdateManager.instance;
     }
 
-    public hook(): void {
+    public getTerminal(): Terminal {
+        return this.terminal;
+    }
+
+    public async hook(): Promise<boolean> {
         if (!this.isActive) {
+            await this.terminal.refresh();
             this.hooks.forEach((hook): void => hook.active());
             this.clear(true);
         }
+
+        return this.isActive;
     }
 
     public unhook(): void {

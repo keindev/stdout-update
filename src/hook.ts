@@ -1,5 +1,5 @@
-import { StringDecoder } from 'string_decoder';
 import ansiEscapes from 'ansi-escapes';
+import { StringDecoder } from 'string_decoder';
 import * as Types from './types';
 
 export class Hook {
