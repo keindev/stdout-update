@@ -1,17 +1,25 @@
-const CODE = '\x1b[6n'; // ansiEscapes.cursorGetPosition;
-const { stdin, stdout } = process;
+import tty from 'tty';
+import ansiEscapes from 'ansi-escapes';
 
 export class Terminal {
     public static COLUMNS = 80;
     public static ROWS = 24;
 
-    private mode = false;
     private status = false;
+    private stdin: NodeJS.ReadStream;
+    private stdout: NodeJS.WriteStream;
     private x = 0;
     private y = 0;
 
-    public static getWidth(): number {
-        const { columns } = stdout;
+    public constructor(stdin?: NodeJS.ReadStream, stdout?: NodeJS.WriteStream) {
+        this.stdin = stdin || process.stdin;
+        this.stdout = stdout || process.stdout;
+    }
+
+    public getWidth(): number {
+        const {
+            stdout: { columns },
+        } = this;
 
         if (!columns) return Terminal.COLUMNS;
         if (process.platform === 'win32') return columns - 1;
@@ -19,8 +27,10 @@ export class Terminal {
         return columns;
     }
 
-    public static getHeight(): number {
-        const { rows } = stdout;
+    public getHeight(): number {
+        const {
+            stdout: { rows },
+        } = this;
 
         if (!rows) return Terminal.ROWS;
         if (process.platform === 'win32') return rows - 1;
@@ -40,28 +50,29 @@ export class Terminal {
     }
 
     public refresh(): Promise<boolean> {
+        const { stdin, stdout } = this;
         this.status = false;
 
         return new Promise((resolve): void => {
             stdin.resume();
-            this.rawMode();
+            this.rawMode(true);
 
             stdin.once('data', (data): void => {
                 const match = /\[(\d+);(\d+)R$/.exec(data.toString());
 
                 if (match) {
-                    this.status = true;
                     [this.y, this.x] = match.slice(1, 3).map(Number);
+                    this.status = true;
                 }
 
                 resolve();
             });
 
-            stdout.write(CODE);
-            stdout.emit('data', CODE);
+            stdout.write(ansiEscapes.cursorGetPosition);
+            stdout.emit('data', ansiEscapes.cursorGetPosition);
         }).then(
             (): Promise<boolean> => {
-                this.rawMode();
+                this.rawMode(false);
                 stdin.pause();
 
                 return Promise.resolve(this.getStatus());
@@ -69,10 +80,14 @@ export class Terminal {
         );
     }
 
-    private rawMode(): void {
+    private rawMode(mode: boolean): void {
+        const { stdin } = this;
+
         if (stdin.setRawMode) {
-            this.mode = !this.mode;
-            stdin.setRawMode(this.mode);
+            stdin.setRawMode(mode);
+        } else {
+            // eslint-disable-next-line @typescript-eslint/no-angle-bracket-type-assertion
+            (<any>tty).setRawMode(mode);
         }
     }
 }

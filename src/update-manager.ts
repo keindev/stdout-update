@@ -11,13 +11,18 @@ export class UpdateManager {
     private isActive: boolean = false;
     private terminal: Terminal = new Terminal();
 
-    private constructor() {
-        this.hooks = [process.stdout, process.stderr].map((stream): Hook => new Hook(stream));
+    private constructor(stdin: NodeJS.ReadStream, stdout: NodeJS.WriteStream, stderr: NodeJS.WriteStream) {
+        this.terminal = new Terminal(stdin, stdout);
+        this.hooks = [stdout, stderr].map((stream): Hook => new Hook(stream));
     }
 
-    public static getInstance(): UpdateManager {
+    public static getInstance(
+        stdin: NodeJS.ReadStream = process.stdin,
+        stdout: NodeJS.WriteStream = process.stdout,
+        stderr: NodeJS.WriteStream = process.stderr
+    ): UpdateManager {
         if (!UpdateManager.instance) {
-            UpdateManager.instance = new UpdateManager();
+            UpdateManager.instance = new UpdateManager(stdin, stdout, stderr);
         }
 
         return UpdateManager.instance;
