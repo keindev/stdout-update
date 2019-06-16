@@ -6,22 +6,27 @@ const messages = ['Swapping time and space...', 'Have a good day.', "Don't panic
 let i = (j = 0);
 let ticks = 60;
 
-manager.hook().then(() => {
-    console.log(' - log message');
-    console.error(' - error message');
-    console.warn(' - warn message');
+manager.hook();
+console.log(' - log message');
+console.error(' - error message');
+console.warn(' - warn message');
 
-    const id = setInterval(() => {
-        if (--ticks < 0) {
-            clearInterval(id);
-            manager.update('✔ Success');
-            manager.update(['', 'Messages:'].join(UpdateManager.EOL), 1);
-            manager.unhook();
-        } else {
-            const frame = frames[(i = ++i % frames.length)];
-            const message = messages[(j = Math.round(ticks / 10) % messages.length)];
+const id = setInterval(() => {
+    if (--ticks < 0) {
+        clearInterval(id);
+        manager.update(['✔ Success', '', 'Messages:'], 1);
+        manager.unhook();
+    } else {
+        const frame = frames[(i = ++i % frames.length)];
+        const message = messages[(j = Math.round(ticks / 10) % messages.length)];
 
-            manager.update([`${frame} Some process...`, message].join(UpdateManager.EOL));
+        // manager.update([`${frame} Some process...`, message]);
+
+        const arr = [`${frame} Some process...`, message];
+
+        for (let i = 0; i < 30; i++) {
+            arr.push(i);
         }
-    }, 80);
-});
+        manager.update(arr);
+    }
+}, 80);

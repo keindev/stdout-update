@@ -1,40 +1,32 @@
+import wrapAnsi from 'wrap-ansi';
 import { Hook } from './hook';
 import { Terminal } from './terminal';
 
 export class UpdateManager {
-    public static DEFAULT_LENGTH = 0;
-    public static EOL = '\n';
-
     private static instance: UpdateManager;
     private hooks: Hook[];
-    private lastLength: number = UpdateManager.DEFAULT_LENGTH;
+    private terminal: Terminal;
+    private lastLength: number = 0;
     private isActive: boolean = false;
-    private terminal: Terminal = new Terminal();
 
-    private constructor(stdin: NodeJS.ReadStream, stdout: NodeJS.WriteStream, stderr: NodeJS.WriteStream) {
-        this.terminal = new Terminal(stdin, stdout);
+    private constructor(stdout: NodeJS.WriteStream, stderr: NodeJS.WriteStream) {
         this.hooks = [stdout, stderr].map((stream): Hook => new Hook(stream));
+        this.terminal = new Terminal(stdout);
     }
 
     public static getInstance(
-        stdin: NodeJS.ReadStream = process.stdin,
         stdout: NodeJS.WriteStream = process.stdout,
         stderr: NodeJS.WriteStream = process.stderr
     ): UpdateManager {
         if (!UpdateManager.instance) {
-            UpdateManager.instance = new UpdateManager(stdin, stdout, stderr);
+            UpdateManager.instance = new UpdateManager(stdout, stderr);
         }
 
         return UpdateManager.instance;
     }
 
-    public getTerminal(): Terminal {
-        return this.terminal;
-    }
-
-    public async hook(): Promise<boolean> {
+    public hook(): boolean {
         if (!this.isActive) {
-            await this.terminal.refresh();
             this.hooks.forEach((hook): void => hook.active());
             this.clear(true);
         }
@@ -42,19 +34,26 @@ export class UpdateManager {
         return this.isActive;
     }
 
-    public unhook(): void {
+    public unhook(): boolean {
         if (this.isActive) {
             this.hooks.forEach((hook): void => hook.inactive());
             this.clear();
         }
+
+        return this.isActive;
     }
 
-    public update(text: string, position: number = 0): void {
+    public update(rows: string[], position: number = 0): void {
         const [hook] = this.hooks;
+        let out = rows.join(Terminal.EOL) + Terminal.EOL;
+
+        out = wrapAnsi(out, this.terminal.getWidth(), {
+
+        });
 
         hook.clear(Math.abs(position - this.lastLength));
-        hook.write(text + UpdateManager.EOL);
-        this.lastLength = text.split(UpdateManager.EOL).length;
+        hook.write(out);
+        this.lastLength = out.split(Terminal.EOL).length;
     }
 
     public isHooked(): boolean {
@@ -63,6 +62,6 @@ export class UpdateManager {
 
     private clear(status: boolean = false): void {
         this.isActive = status;
-        this.lastLength = UpdateManager.DEFAULT_LENGTH;
+        this.lastLength = 0;
     }
 }

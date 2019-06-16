@@ -32,11 +32,11 @@ describe('Terminal', (): void => {
         });
 
         terminal.refresh().then((): void => {
-            const position = terminal.getCursorPosition();
+            const position = terminal.getStartCursorPosition();
 
             expect(position).toBeTruthy();
-            expect(position.x).toBe(0);
-            expect(position.y).toBe(12);
+            expect(position.col).toBe(0);
+            expect(position.row).toBe(12);
             expect(terminal.getWidth()).toBe(COLUMNS);
             expect(terminal.getHeight()).toBe(ROWS);
 
