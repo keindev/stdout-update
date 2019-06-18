@@ -13,7 +13,7 @@ export class UpdateManager {
     private constructor(stdout: NodeJS.WriteStream, stderr: NodeJS.WriteStream) {
         this.hooks = [stdout, stderr].map((stream): Hook => new Hook(stream));
         this.terminal = new Terminal(stdout);
-        this.wrapper = new Wrapper(this.terminal.getWidth());
+        this.wrapper = new Wrapper();
     }
 
     public static getInstance(
@@ -48,10 +48,11 @@ export class UpdateManager {
     public update(rows: string[], position: number = 0): void {
         const [hook] = this.hooks;
         const height = Math.min(Math.abs(position - this.lastLength), this.terminal.getHeight() - 1);
+        const width = this.terminal.getWidth();
         let output: string[] = [];
 
         rows.forEach((row): void => {
-            output.push(...this.wrapper.wrap(row));
+            output.push(...this.wrapper.wrap(row, width));
         });
 
         if (height) {
