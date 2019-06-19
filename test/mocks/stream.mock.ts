@@ -154,19 +154,6 @@ class Writable extends Socket {
     }
 }
 
-class Readable extends Socket {
-    public readableHighWaterMark: number = 0;
-    public readableLength: number = 0;
-
-    public _read(size: number): void {
-        throw new Error('Method not implemented.');
-    }
-
-    public push(chunk: any, encoding?: string): boolean {
-        throw new Error('Method not implemented.');
-    }
-}
-
 export class WriteStream extends Writable implements NodeJS.WriteStream {
     public readonly readable: boolean = false;
     public readonly writable: boolean = true;
@@ -198,70 +185,5 @@ export class WriteStream extends Writable implements NodeJS.WriteStream {
         }
 
         return true;
-    }
-}
-
-export class ReadStream extends Readable implements NodeJS.ReadStream {
-    public readable: boolean = true;
-    public writable: boolean = false;
-    public isRaw?: boolean = false;
-
-    private __isPaused: boolean = false;
-    // only once events
-    private __events: Map<string | symbol, Callback[]> = new Map();
-
-    public setRawMode(mode: boolean): void {
-        this.isRaw = mode;
-    }
-
-    public pause(): this {
-        this.__isPaused = true;
-
-        return this;
-    }
-
-    public resume(): this {
-        this.__isPaused = false;
-
-        return this;
-    }
-
-    public isPaused(): boolean {
-        return this.__isPaused;
-    }
-
-    public emit(event: string | symbol, ...args: any[]): boolean {
-        const { __events } = this;
-        const listeners = __events.get(event);
-
-        if (Array.isArray(listeners)) {
-            while (listeners.length) {
-                const listener = listeners.pop();
-
-                if (listener) listener(args);
-            }
-        }
-
-        return __events.has(event);
-    }
-
-    public once(event: string | symbol, listener: Callback): this {
-        const { __events } = this;
-        const once = (): void => {
-            const listeners = __events.get(event) || [];
-
-            listeners.push(listener);
-            __events.set(event, listeners);
-        };
-
-        switch (event) {
-            case 'data':
-                once();
-                break;
-            default:
-                throw new Error(`Event handling not implemented`);
-        }
-
-        return this;
     }
 }

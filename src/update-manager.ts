@@ -42,7 +42,7 @@ export class UpdateManager {
             this.clear();
         }
 
-        return this.isActive;
+        return !this.isActive;
     }
 
     public update(rows: string[], position: number = 0): void {

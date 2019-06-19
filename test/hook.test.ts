@@ -1,69 +1,58 @@
+/* eslint-disable no-underscore-dangle */
 import ansiEscapes from 'ansi-escapes';
 import { Hook } from '../src/hook';
+import { WriteStream } from './mocks/stream.mock';
 
-const output: string[] = [];
-const stream: any = {
-    callbacksCount: 0,
-    messagesCount: 0,
-
-    testCallback(): void {
-        stream.callbacksCount++;
-    },
-    testMessage(): string {
-        return `message ${++this.messagesCount}`;
-    },
-    getBuffer(str: string): Buffer {
-        return Buffer.from(str, 'utf8');
-    },
-    getArrayBuffer(str: string): Uint8Array {
-        return new Uint8Array(Buffer.from(this.getBuffer(str), 'utf8'));
-    },
-    write(str: string, cb?: () => void): boolean {
-        if (cb) cb();
-
-        return !!output.push(str);
-    },
-};
-const hook = new Hook(stream);
+let count = 0;
+let calls = 0;
 let msg1: string;
 let msg2: string;
+
+const ROWS = 12;
+const COLUMNS = 80;
+const stream: WriteStream = new WriteStream(COLUMNS, ROWS);
+const hook = new Hook(stream);
+const message = (): string => `message ${count++}`;
+const callback = (): number => calls++;
+const getBuffer = (str: string): Buffer => Buffer.from(str, 'utf8');
+const getArrayBuffer = (str: string): Uint8Array => new Uint8Array(getBuffer(str));
 
 describe('Hook', (): void => {
     it('Active', (): void => {
         hook.active();
-        expect(output.pop()).toBe(ansiEscapes.cursorHide);
+        expect(stream.__stack.pop()).toBe(ansiEscapes.cursorHide);
     });
 
     it('Write', (): void => {
-        hook.write(stream.testMessage());
-        expect(output.length).toBe(stream.messagesCount);
+        hook.write(message());
+        expect(stream.__stack.length).toBe(count);
 
-        hook.clear(stream.messagesCount);
-        expect(output.pop()).toBe(ansiEscapes.eraseLines(stream.messagesCount + 1));
+        hook.clear(count);
+        expect(stream.__stack.pop()).toBe(ansiEscapes.eraseLines(count + 1));
 
-        stream.write(stream.testMessage(), stream.testCallback);
-        hook.write(stream.testMessage());
-        expect(output.length).toBe(stream.messagesCount - 1);
-        expect(stream.callbacksCount).toBe(1);
+        stream.write(message(), callback);
+        hook.write(message());
+        expect(stream.__stack.length).toBe(count - 1);
+        expect(calls).toBe(1);
     });
 
     it('Write (others)', (): void => {
-        stream.write(stream.testMessage(), 'utf8', stream.testCallback);
-        expect(stream.callbacksCount).toBe(2);
+        stream.write(message(), 'utf8', callback);
+        expect(calls).toBe(2);
 
-        stream.write(stream.getBuffer((msg1 = stream.testMessage())), stream.testCallback);
-        expect(stream.callbacksCount).toBe(3);
+        stream.write(getBuffer((msg1 = message())), callback);
+        expect(calls).toBe(3);
 
-        stream.write(stream.getArrayBuffer((msg2 = stream.testMessage())), stream.testCallback);
-        expect(stream.callbacksCount).toBe(4);
+        stream.write(getArrayBuffer((msg2 = message())), callback);
+        expect(calls).toBe(4);
     });
 
     it('Inactive', (): void => {
         hook.inactive();
 
-        expect(output.pop()).toBe(ansiEscapes.cursorShow);
-        expect(output.length).toBe(stream.messagesCount);
-        expect(output.pop()).toBe(msg2);
-        expect(output.pop()).toBe(msg1);
+        expect(stream.__stack.pop()).toBe(ansiEscapes.cursorShow);
+        expect(stream.__stack.length).toBe(count);
+        expect(stream.__stack.pop()).toBe(msg2);
+        expect(stream.__stack.pop()).toBe(msg1);
     });
 });

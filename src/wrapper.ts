@@ -21,7 +21,7 @@ export class Wrapper {
         let result = Wrapper.EMPTY;
         let match: RegExpExecArray | null;
         let code: number | undefined;
-        let escapeCode: number | undefined;
+        let escapeCode: number | null;
 
         [...characters].forEach((character, index): void => {
             result += character;
@@ -31,15 +31,17 @@ export class Wrapper {
 
                 if (match) {
                     code = parseFloat(match[0]);
-                    escapeCode = code === Wrapper.END_CODE ? undefined : code;
+                    escapeCode = code === Wrapper.END_CODE ? null : code;
                 }
             }
 
-            if (escapeCode) {
-                code = ansiStyles.codes.get(escapeCode);
+            code = ansiStyles.codes.get(Number(escapeCode));
 
-                if (code) {
-                    result += wrap(characters[index + 1] === Terminal.EOL ? code : escapeCode);
+            if (escapeCode && code) {
+                if (characters[index + 1] === Terminal.EOL) {
+                    result += wrap(code);
+                } else if (character === Terminal.EOL) {
+                    result += wrap(escapeCode);
                 }
             }
         });
@@ -47,29 +49,38 @@ export class Wrapper {
         return result;
     }
 
+    private static trimRight(str: string): string {
+        const words = str.split(Wrapper.SPACE);
+        let last = words.length;
+
+        while (last > 0 && stringWidth(words[last - 1]) <= 0) last--;
+
+        return last === words.length
+            ? str
+            : words.slice(0, last).join(Wrapper.SPACE) + words.slice(last).join(Wrapper.EMPTY);
+    }
+
     public wrap(str: string, limit: number): string[] {
-        const text = String(str).normalize();
+        if (str.trim() === Wrapper.EMPTY) return [Wrapper.EMPTY];
 
         this.rows = [Wrapper.EMPTY];
 
         const { rows } = this;
-        const words = text.split(Wrapper.SPACE);
+        const words = str.normalize().split(Wrapper.SPACE);
         const lengths = words.map((character): number => stringWidth(character));
         let rowLength: number;
         let wordLength: number;
 
         words.forEach((word, index): void => {
+            rows[rows.length - 1] = rows[rows.length - 1].trimLeft();
             rowLength = stringWidth(rows[rows.length - 1]);
             wordLength = lengths[index];
 
-            if (index > 0) {
-                if (rowLength >= limit) {
-                    rows.push(Wrapper.EMPTY);
-                    rowLength = 0;
+            if (index !== 0) {
+                if (rowLength > 0) {
+                    rows[rows.length - 1] += Wrapper.SPACE;
+                    rowLength++;
                 }
-
-                rows[rows.length - 1] += Wrapper.SPACE;
-                rowLength++;
             }
 
             if (wordLength > limit) {
@@ -77,20 +88,17 @@ export class Wrapper {
                 const breaksStartingThisLine = 1 + Math.floor((wordLength - remainingColumns - 1) / limit);
                 const breaksStartingNextLine = Math.floor((wordLength - 1) / limit);
 
-                if (breaksStartingNextLine < breaksStartingThisLine) {
-                    rows.push(Wrapper.EMPTY);
-                }
+                if (breaksStartingNextLine < breaksStartingThisLine) rows.push(Wrapper.EMPTY);
 
                 this.wrapWord(word, limit);
-            } else if (rowLength + lengths[index] > limit && rowLength && lengths[index]) {
-                rows.push(Wrapper.EMPTY);
-                rows[rows.length - 1] += word;
             } else {
+                if (rowLength + wordLength > limit && rowLength && wordLength) rows.push(Wrapper.EMPTY);
+
                 rows[rows.length - 1] += word;
             }
         });
 
-        return rows.map((row): string => Wrapper.wrapEscapes(row));
+        return Wrapper.wrapEscapes(rows.map(Wrapper.trimRight).join(Terminal.EOL)).split(Terminal.EOL);
     }
 
     private wrapWord(word: string, limit: number): void {
