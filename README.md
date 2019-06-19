@@ -26,15 +26,14 @@ yarn add stdout-update
 
 ```javascript
 const { UpdateManager } = require('../lib/update-manager');
-const manager = UpdateManager.getInstance();
 
+const manager = UpdateManager.getInstance();
 const frames = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'];
 const messages = ['Swapping time and space...', 'Have a good day.', "Don't panic...", 'Updating Updater...', '42'];
 let i = (j = 0);
 let ticks = 60;
 
 manager.hook();
-
 console.log(' - log message');
 console.error(' - error message');
 console.warn(' - warn message');
@@ -42,14 +41,13 @@ console.warn(' - warn message');
 const id = setInterval(() => {
     if (--ticks < 0) {
         clearInterval(id);
-        manager.update('✔ Success');
-        manager.update(['', 'Messages:'].join(UpdateManager.EOL), 1);
+        manager.update(['✔ Success', '', 'Messages:'], 1);
         manager.unhook();
     } else {
         const frame = frames[(i = ++i % frames.length)];
         const message = messages[(j = Math.round(ticks / 10) % messages.length)];
 
-        manager.update([`${frame} Some process...`, message].join(UpdateManager.EOL));
+        manager.update([`${frame} Some process...`, message]);
     }
 }, 80);
 ```
@@ -62,21 +60,21 @@ Method to get the object to control the streams (`stdout`, `stderr`) update. Ret
 
 ### hook()
 
-Hook stdout and stderr streams.
+Hook stdout and stderr streams. Returns success status.
 
 ### unhook()
 
-Unhooks both stdout and stderr streams and print their story of logs.
+Unhooks both stdout and stderr streams and print their story of logs. Returns success status.
 
-### update(text, [position])
+### update(rows, [position])
 
 Method to get the object to control the streams (`stdout`, `stderr`) update. Returns `UpdateManager` instance.
 
-#### text
+#### rows
 
-Type: `string`
+Type: `string[]`
 
-Text to write to standard output.
+Text lines to write to standard output.
 
 #### position
 

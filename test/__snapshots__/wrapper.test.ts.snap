@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Wrapper Breaks strings longer than "cols" characters 1`] = `
+Array [
+  "The quick brown [31mfox[39m",
+  "[31mjumped over [39mthe lazy",
+  "[31mdog and then ran[39m",
+  "[31maway with the[39m",
+  "[31mquokka.[39m",
+]
+`;
+
+exports[`Wrapper Breaks strings longer than "cols" characters 2`] = `
+Array [
+  "The",
+  "quick",
+  "brown",
+  "[31mfox j[39m",
+  "[31mumped[39m",
+  "[31mover[39m",
+  "[31m[39mthe",
+  "lazy",
+  "[31mdog[39m",
+  "[31mand[39m",
+  "[31mthen[39m",
+  "[31mran[39m",
+  "[31maway[39m",
+  "[31mwith[39m",
+  "[31mthe[39m",
+  "[31mquokk[39m",
+  "[31ma.[39m",
+]
+`;
