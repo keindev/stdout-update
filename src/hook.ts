@@ -50,7 +50,9 @@ export class Hook {
     }
 
     public clear(lines: number): void {
-        this.write(ansiEscapes.eraseLines(lines + 1));
+        if (lines > 0) {
+            this.write(ansiEscapes.eraseLines(lines + 1));
+        }
     }
 
     public write(msg: string): void {

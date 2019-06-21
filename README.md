@@ -41,7 +41,7 @@ console.warn(' - warn message');
 const id = setInterval(() => {
     if (--ticks < 0) {
         clearInterval(id);
-        manager.update(['✔ Success', '', 'Messages:'], 1);
+        manager.update(['✔ Success', '', 'Messages:'], 0);
         manager.unhook();
     } else {
         const frame = frames[(i = ++i % frames.length)];
@@ -83,6 +83,14 @@ Type: `number`
 Default: `0`
 
 Index of the line starting from which the contents of the terminal are being overwritten.
+
+### getLastLength(): number {
+
+Returns last printed rows count.
+
+### public getOutside()
+
+Returns rows count outside editable area.
 
 ### isHooked()
 

@@ -7,6 +7,7 @@ let i = (j = 0);
 let ticks = 60;
 
 manager.hook();
+
 console.log(' - log message');
 console.error(' - error message');
 console.warn(' - warn message');
@@ -14,7 +15,7 @@ console.warn(' - warn message');
 const id = setInterval(() => {
     if (--ticks < 0) {
         clearInterval(id);
-        manager.update(['✔ Success', '', 'Messages:'], 1);
+        manager.update(['✔ Success', '', 'Messages:'], 0);
         manager.unhook();
     } else {
         const frame = frames[(i = ++i % frames.length)];

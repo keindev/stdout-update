@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable class-methods-use-this */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import ansiEscapes from 'ansi-escapes';
 
 type Callback = (...args: any[]) => void;
 
@@ -172,18 +171,15 @@ export class WriteStream extends Writable implements NodeJS.WriteStream {
 
     public write(str: any, encoding?: any, cb?: any): boolean {
         if (typeof str === 'string') {
-            switch (str) {
-                case ansiEscapes.cursorGetPosition:
-                    this.__stack.push(`\\[${this.rows};0R`);
-                    break;
-                default:
-                    this.__stack.push(str);
-                    break;
-            }
+            this.__stack.push(...str.split('\n'));
         } else {
             this.__stack.push(str);
         }
 
         return true;
+    }
+
+    public clear(): void {
+        this.__stack = [];
     }
 }
