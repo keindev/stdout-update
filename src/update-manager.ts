@@ -7,8 +7,9 @@ export class UpdateManager {
     private hooks: Hook[];
     private wrapper: Wrapper;
     private terminal: Terminal;
-    private lastLength: number = 0;
-    private isActive: boolean = false;
+    private lastLength = 0;
+    private outside = 0;
+    private isActive = false;
 
     private constructor(stdout: NodeJS.WriteStream, stderr: NodeJS.WriteStream) {
         this.hooks = [stdout, stderr].map((stream): Hook => new Hook(stream));
@@ -50,21 +51,30 @@ export class UpdateManager {
         const [hook] = this.hooks;
         const height = terminal.getHeight();
         const width = terminal.getWidth();
+        const outside = Math.max(lastLength - height, this.outside);
         let output = rows.reduce<string[]>((acc, row): string[] => acc.concat(this.wrapper.wrap(row, width)), []);
 
-        this.lastLength = position ? lastLength - position + output.length : output.length;
-
         if (height <= lastLength) {
-            const outside = lastLength - height;
-
-            // FIXME: if pos < outside ? slice out : calc clear height
             hook.clear(height);
-            output.slice(outside + 1);
-        } else {
+
+            if (position < outside) {
+                output = output.slice(outside - position);
+            }
+        } else if (lastLength - position > 0) {
             hook.clear(lastLength - position);
         }
 
         hook.write(output.join(Terminal.EOL) + Terminal.EOL);
+        this.lastLength = outside ? outside + output.length + 1 : output.length + 1;
+        this.outside = Math.max(this.lastLength - height, this.outside);
+    }
+
+    public getLastLength(): number {
+        return this.lastLength;
+    }
+
+    public getOutside(): number {
+        return this.outside;
     }
 
     public isHooked(): boolean {
@@ -74,5 +84,6 @@ export class UpdateManager {
     private clear(status: boolean = false): void {
         this.isActive = status;
         this.lastLength = 0;
+        this.outside = 0;
     }
 }

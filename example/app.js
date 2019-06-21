@@ -7,6 +7,7 @@ let i = (j = 0);
 let ticks = 60;
 
 manager.hook();
+
 console.log(' - log message');
 console.error(' - error message');
 console.warn(' - warn message');
