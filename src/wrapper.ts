@@ -72,15 +72,12 @@ export class Wrapper {
         let wordLength: number;
 
         words.forEach((word, index): void => {
-            rows[rows.length - 1] = rows[rows.length - 1].trimLeft();
             rowLength = stringWidth(rows[rows.length - 1]);
             wordLength = lengths[index];
 
             if (index !== 0) {
-                if (rowLength > 0) {
-                    rows[rows.length - 1] += Wrapper.SPACE;
-                    rowLength++;
-                }
+                rows[rows.length - 1] += Wrapper.SPACE;
+                rowLength++;
             }
 
             if (wordLength > limit) {

@@ -14,7 +14,7 @@ console.warn(' - warn message');
 const id = setInterval(() => {
     if (--ticks < 0) {
         clearInterval(id);
-        manager.update(['✔ Success', '', 'Messages:'], 1);
+        manager.update(['✔ Success', '', 'Messages:'], 0);
         manager.unhook();
     } else {
         const frame = frames[(i = ++i % frames.length)];

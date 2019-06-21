@@ -21,13 +21,33 @@ describe('UpdateManager', (): void => {
     });
 
     it('Update', (): void => {
-        expect(manager.isHooked()).toBeTruthy();
+        const message1 = 'test text';
+        const message2 = 'test text';
 
-        manager.update(['test text']);
-        manager.update(['text test']);
+        expect(stdout.__stack.length).toBe(1);
+
+        manager.update([message1]);
 
         expect(stdout.__stack.length).toBe(4);
-        expect(manager.isHooked()).toBeTruthy();
+        expect(stdout.__stack[2]).toBe(message1);
+
+        manager.update([message2], 1);
+
+        expect(stdout.__stack.length).toBe(7);
+        expect(stdout.__stack[5]).toBe(message2);
+    });
+
+    it('Update outside', (): void => {
+        const list: string[] = [];
+
+        for (let i = 0; i <= ROWS + 1; i++) list.push(`test - ${i}`);
+
+        expect(list.length).toBeGreaterThan(ROWS);
+        expect(stdout.__stack.length).toBe(7);
+
+        manager.update(list);
+
+        expect(stdout.__stack.length).toBe(list.length + 9);
     });
 
     it('Unhook', (): void => {

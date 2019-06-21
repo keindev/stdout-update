@@ -46,22 +46,25 @@ export class UpdateManager {
     }
 
     public update(rows: string[], position: number = 0): void {
+        const { terminal, lastLength } = this;
         const [hook] = this.hooks;
-        const height = Math.min(Math.abs(position - this.lastLength), this.terminal.getHeight() - 1);
-        const width = this.terminal.getWidth();
-        let output: string[] = [];
+        const height = terminal.getHeight();
+        const width = terminal.getWidth();
+        let output = rows.reduce<string[]>((acc, row): string[] => acc.concat(this.wrapper.wrap(row, width)), []);
 
-        rows.forEach((row): void => {
-            output.push(...this.wrapper.wrap(row, width));
-        });
+        this.lastLength = position ? lastLength - position + output.length : output.length;
 
-        if (height) {
+        if (height <= lastLength) {
+            const outside = lastLength - height;
+
+            // FIXME: if pos < outside ? slice out : calc clear height
             hook.clear(height);
-            output = output.slice(output.length - height);
+            output.slice(outside + 1);
+        } else {
+            hook.clear(lastLength - position);
         }
 
         hook.write(output.join(Terminal.EOL) + Terminal.EOL);
-        this.lastLength = output.length;
     }
 
     public isHooked(): boolean {
