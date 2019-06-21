@@ -84,6 +84,14 @@ Default: `0`
 
 Index of the line starting from which the contents of the terminal are being overwritten.
 
+### getLastLength(): number {
+
+Returns last printed rows count.
+
+### public getOutside()
+
+Returns rows count outside editable area.
+
 ### isHooked()
 
 Returns the activity status of the hook.
