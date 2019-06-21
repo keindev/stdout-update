@@ -178,4 +178,8 @@ export class WriteStream extends Writable implements NodeJS.WriteStream {
 
         return true;
     }
+
+    public clear(): void {
+        this.__stack = [];
+    }
 }
