@@ -16,10 +16,16 @@ Purely and accurately overwrites the previous output in the terminal, while main
 
 ## Install
 
+### Yarn
+
+```console
+yarn add stdout-update
+```
+
+### NPM
+
 ```console
 npm install stdout-update
-
-yarn add stdout-update
 ```
 
 ## Usage
