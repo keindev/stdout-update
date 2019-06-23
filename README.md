@@ -84,11 +84,11 @@ Default: `0`
 
 Index of the line starting from which the contents of the terminal are being overwritten.
 
-### getLastLength(): number {
+### getLastLength()
 
 Returns last printed rows count.
 
-### public getOutside()
+### getOutside()
 
 Returns rows count outside editable area.
 
