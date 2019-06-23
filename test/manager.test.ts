@@ -28,8 +28,8 @@ describe('UpdateManager', (): void => {
     });
 
     it('Update', (): void => {
-        const message1 = 'test text';
-        const message2 = 'test text';
+        const message1 = 'test text 1';
+        const message2 = 'test text 2';
 
         expect(stdout.__stack.length).toBe(0);
 
@@ -41,7 +41,6 @@ describe('UpdateManager', (): void => {
 
         manager.update([message2], 1);
 
-        expect(JSON.stringify([stdout.__stack.shift()])).toBe(JSON.stringify([ansiEscapes.eraseLines(2)]));
         expect(stdout.__stack.pop()).toBe(Wrapper.EMPTY);
         expect(stdout.__stack.pop()).toBe(message2);
         expect(stdout.__stack.length).toBe(0);
@@ -54,7 +53,7 @@ describe('UpdateManager', (): void => {
 
             manager.update(list);
 
-            expect(JSON.stringify([stdout.__stack.shift()])).toBe(JSON.stringify([ansiEscapes.eraseLines(3)]));
+            expect(JSON.stringify([stdout.__stack.shift()])).toBe(JSON.stringify([ansiEscapes.eraseLines(2)]));
             expect(stdout.__stack.pop()).toBe(Wrapper.EMPTY);
             expect(stdout.__stack.length).toBe(list.length);
 
@@ -71,14 +70,14 @@ describe('UpdateManager', (): void => {
             manager.update([...list, ...list]);
             stdout.clear();
 
-            expect(manager.getLastLength()).toBe(list.length * 2 + 1);
-            expect(manager.getOutside()).toBe(list.length + 3);
+            expect(manager.getLastLength()).toBe(list.length * 2);
+            expect(manager.getOutside()).toBe(list.length + 2);
             expect(stdout.__stack.length).toBe(0);
 
             manager.update(list, position);
             expect(JSON.stringify([stdout.__stack.shift()])).toBe(JSON.stringify([ansiEscapes.eraseLines(ROWS + 1)]));
             expect(stdout.__stack.pop()).toBe(Wrapper.EMPTY);
-            expect(stdout.__stack.length).toBe(list.length - (manager.getOutside() - position));
+            expect(stdout.__stack.length).toBe(list.length - (manager.getOutside() - position + 1));
             stdout.clear();
         });
     });

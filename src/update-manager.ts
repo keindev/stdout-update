@@ -58,14 +58,14 @@ export class UpdateManager {
             hook.clear(height);
 
             if (position < outside) {
-                output = output.slice(outside - position);
+                output = output.slice(outside - position + 1);
             }
         } else if (lastLength - position > 0) {
             hook.clear(lastLength - position);
         }
 
         hook.write(output.join(Terminal.EOL) + Terminal.EOL);
-        this.lastLength = outside ? outside + output.length + 1 : output.length + 1;
+        this.lastLength = outside ? outside + output.length + 1 : output.length;
         this.outside = Math.max(this.lastLength - height, this.outside);
     }
 
