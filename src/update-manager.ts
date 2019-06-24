@@ -46,22 +46,24 @@ export class UpdateManager {
         return !this.isActive;
     }
 
-    public update(rows: string[], position: number = 0): void {
-        const { terminal, lastLength } = this;
+    public update(rows: string[], from: number = 0): void {
+        const { terminal } = this;
         const [hook] = this.hooks;
         const height = terminal.getHeight();
         const width = terminal.getWidth();
-        const outside = Math.max(lastLength - height, this.outside);
+        const position = from > height ? height - 1 : Math.max(0, Math.min(height - 1, from));
+        const actualLength = this.lastLength - position;
+        const outside = Math.max(actualLength - height, this.outside);
         let output = rows.reduce<string[]>((acc, row): string[] => acc.concat(this.wrapper.wrap(row, width)), []);
 
-        if (height <= lastLength) {
+        if (height <= actualLength) {
             hook.clear(height);
 
             if (position < outside) {
                 output = output.slice(outside - position + 1);
             }
-        } else if (lastLength - position > 0) {
-            hook.clear(lastLength - position);
+        } else if (actualLength) {
+            hook.clear(actualLength);
         }
 
         hook.write(output.join(Terminal.EOL) + Terminal.EOL);
