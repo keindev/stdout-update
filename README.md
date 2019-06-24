@@ -72,7 +72,7 @@ Hook stdout and stderr streams. Returns success status.
 
 Unhooks both stdout and stderr streams and print their story of logs. Returns success status.
 
-### update(rows, [position])
+### update(rows, [from])
 
 Method to get the object to control the streams (`stdout`, `stderr`) update. Returns `UpdateManager` instance.
 
@@ -82,7 +82,7 @@ Type: `string[]`
 
 Text lines to write to standard output.
 
-#### position
+#### from
 
 Type: `number`
 
