@@ -156,6 +156,7 @@ class Writable extends Socket {
 export class WriteStream extends Writable implements NodeJS.WriteStream {
     public readonly readable: boolean = false;
     public readonly writable: boolean = true;
+    public readonly writableFinished: boolean = false;
 
     public columns: number;
     public rows: number;
