@@ -1,7 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import ansiEscapes from 'ansi-escapes';
 import { UpdateManager } from '../src/update-manager';
-import { WriteStream } from './mocks/stream.mock';
+import { WriteStream } from './__mocks__/stream.mock';
 import { Wrapper } from '../src/wrapper';
 
 const ROWS = 12;

@@ -1,5 +1,5 @@
 import { Terminal } from '../src/terminal';
-import { WriteStream } from './mocks/stream.mock';
+import { WriteStream } from './__mocks__/stream.mock';
 
 const ROWS = 12;
 const COLUMNS = 80;

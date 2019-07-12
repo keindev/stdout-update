@@ -1,7 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import ansiEscapes from 'ansi-escapes';
 import { Hook } from '../src/hook';
-import { WriteStream } from './mocks/stream.mock';
+import { WriteStream } from './__mocks__/stream.mock';
 
 let count = 0;
 let calls = 0;
