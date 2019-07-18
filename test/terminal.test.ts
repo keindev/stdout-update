@@ -1,23 +1,15 @@
 import { Terminal } from '../src/terminal';
-import { WriteStream } from './__mocks__/stream.mock';
+import { MockWriteStream } from './__mocks__/stream.mock';
 
-const ROWS = 12;
-const COLUMNS = 80;
-
-let stdout: WriteStream;
-let terminal: Terminal;
+const stdout: MockWriteStream = new MockWriteStream();
+const terminal: Terminal = new Terminal(stdout);
 
 describe('Terminal', (): void => {
-    beforeEach((): void => {
-        stdout = new WriteStream(COLUMNS, ROWS);
-        terminal = new Terminal(stdout);
-    });
-
     it('Size', (): void => {
-        expect(stdout).toBeInstanceOf(WriteStream);
+        expect(stdout).toBeInstanceOf(MockWriteStream);
         expect(terminal).toBeInstanceOf(Terminal);
 
-        expect(terminal.getWidth()).toBe(COLUMNS);
-        expect(terminal.getHeight()).toBe(ROWS);
+        expect(terminal.getWidth()).toBe(MockWriteStream.COLUMNS);
+        expect(terminal.getHeight()).toBe(MockWriteStream.ROWS);
     });
 });
