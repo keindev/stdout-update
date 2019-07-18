@@ -4,6 +4,7 @@ export class Terminal {
     public static EOL = '\n';
 
     private stdout: NodeJS.WriteStream;
+    private isWin32: boolean = process.platform === 'win32';
 
     public constructor(stdout: NodeJS.WriteStream) {
         this.stdout = stdout;
@@ -14,10 +15,7 @@ export class Terminal {
             stdout: { columns },
         } = this;
 
-        if (!columns) return Terminal.COLUMNS;
-        if (process.platform === 'win32') return columns - 1;
-
-        return columns;
+        return columns ? this.adapt(columns) : Terminal.COLUMNS;
     }
 
     public getHeight(): number {
@@ -25,9 +23,10 @@ export class Terminal {
             stdout: { rows },
         } = this;
 
-        if (!rows) return Terminal.ROWS;
-        if (process.platform === 'win32') return rows - 1;
+        return rows ? this.adapt(rows) : Terminal.ROWS;
+    }
 
-        return rows;
+    private adapt(value: number): number {
+        return this.isWin32 ? value - 1 : value;
     }
 }

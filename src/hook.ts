@@ -16,6 +16,7 @@ export class Hook {
     }
 
     private static getBuffer(data: Types.WritableData, encoding: Types.WritableEncoding): Buffer {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         if (typeof data === 'string') return Buffer.from(data, encoding as any);
         if (data instanceof Uint8Array) return Buffer.from(data);
 
@@ -31,7 +32,9 @@ export class Hook {
 
             story.push(decoder.write(Hook.getBuffer(data, typeof args[0] === 'string' ? args[0] : undefined)));
 
-            if (typeof callback === 'function') callback();
+            if (typeof callback === 'function') {
+                callback();
+            }
 
             return Hook.DRAIN;
         };

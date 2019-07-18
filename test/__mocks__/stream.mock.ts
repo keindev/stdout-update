@@ -2,9 +2,9 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-type Callback = (...args: any[]) => void;
+type MockCallback = (...args: any[]) => void;
 
-class Socket {
+class MockSocket {
     public readonly isTTY?: true;
 
     public constructor() {
@@ -55,23 +55,23 @@ class Socket {
         throw new Error('Method not implemented.');
     }
 
-    public addListener(event: string | symbol, listener: Callback): this {
+    public addListener(event: string | symbol, listener: MockCallback): this {
         throw new Error('Method not implemented.');
     }
 
-    public on(event: string | symbol, listener: Callback): this {
+    public on(event: string | symbol, listener: MockCallback): this {
         throw new Error('Method not implemented.');
     }
 
-    public once(event: string | symbol, listener: Callback): this {
+    public once(event: string | symbol, listener: MockCallback): this {
         throw new Error('Method not implemented.');
     }
 
-    public removeListener(event: string | symbol, listener: Callback): this {
+    public removeListener(event: string | symbol, listener: MockCallback): this {
         throw new Error('Method not implemented.');
     }
 
-    public off(event: string | symbol, listener: Callback): this {
+    public off(event: string | symbol, listener: MockCallback): this {
         throw new Error('Method not implemented.');
     }
 
@@ -103,11 +103,11 @@ class Socket {
         throw new Error('Method not implemented.');
     }
 
-    public prependListener(event: string | symbol, listener: Callback): this {
+    public prependListener(event: string | symbol, listener: MockCallback): this {
         throw new Error('Method not implemented.');
     }
 
-    public prependOnceListener(event: string | symbol, listener: Callback): this {
+    public prependOnceListener(event: string | symbol, listener: MockCallback): this {
         throw new Error('Method not implemented.');
     }
 
@@ -128,7 +128,7 @@ class Socket {
     }
 }
 
-class Writable extends Socket {
+class MockWritable extends MockSocket {
     public writableHighWaterMark: number = 0;
     public writableLength: number = 0;
 
@@ -153,16 +153,19 @@ class Writable extends Socket {
     }
 }
 
-export class WriteStream extends Writable implements NodeJS.WriteStream {
+export class MockWriteStream extends MockWritable implements NodeJS.WriteStream {
+    public static ROWS = 12;
+    public static COLUMNS = 80;
     public readonly readable: boolean = false;
     public readonly writable: boolean = true;
+    public readonly writableFinished: boolean = false;
 
     public columns: number;
     public rows: number;
 
     public __stack: any[] = [];
 
-    public constructor(columns: number, rows: number) {
+    public constructor(columns: number = MockWriteStream.COLUMNS, rows: number = MockWriteStream.ROWS) {
         super();
 
         this.columns = columns;
