@@ -1,6 +1,7 @@
 import ansiEscapes from 'ansi-escapes';
 import { StringDecoder } from 'string_decoder';
 import * as Types from './types';
+import { Terminal } from './terminal';
 
 export class Hook {
     public static DRAIN = true;
@@ -8,7 +9,7 @@ export class Hook {
     private stream: NodeJS.WriteStream;
     private decoder = new StringDecoder();
     private method: Types.WritableFunction;
-    private story: string[] = [];
+    private history: string[] = [];
 
     public constructor(stream: NodeJS.WriteStream) {
         this.method = stream.write;
@@ -24,13 +25,13 @@ export class Hook {
     }
 
     public active(): void {
-        const { story, decoder } = this;
+        const { history, decoder } = this;
 
         this.write(ansiEscapes.cursorHide);
         this.stream.write = (data: Types.WritableData, ...args: Types.WritableArgs): boolean => {
             const callback = args[args.length - 1];
 
-            story.push(decoder.write(Hook.getBuffer(data, typeof args[0] === 'string' ? args[0] : undefined)));
+            history.push(decoder.write(Hook.getBuffer(data, typeof args[0] === 'string' ? args[0] : undefined)));
 
             if (typeof callback === 'function') {
                 callback();
@@ -40,12 +41,16 @@ export class Hook {
         };
     }
 
-    public inactive(): void {
-        const { story } = this;
+    public inactive(separateHistory: boolean = false): void {
+        const { history } = this;
 
-        if (story.length) {
-            story.forEach(this.write, this);
-            this.story = [];
+        if (history.length) {
+            if (separateHistory) {
+                this.write(Terminal.EOL);
+            }
+
+            history.forEach(this.write, this);
+            this.history = [];
         }
 
         this.stream.write = this.method;
