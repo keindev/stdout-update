@@ -16,7 +16,7 @@ const id = setInterval(() => {
     if (--ticks < 0) {
         clearInterval(id);
         manager.update(['✔ Success', '', 'Messages:'], 0);
-        manager.unhook();
+        manager.unhook(false);
     } else {
         const frame = frames[(i = ++i % frames.length)];
         const message = messages[(j = Math.round(ticks / 10) % messages.length)];
