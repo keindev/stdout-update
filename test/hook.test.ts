@@ -33,12 +33,14 @@ describe('Hook', (): void => {
     });
 
     it('Inactive', (): void => {
-        hook.inactive();
+        hook.inactive(true);
 
         expect(stream.__stack).toStrictEqual([
             'line 1',
             ansiEscapes.eraseLines(2),
             'line 3',
+            '',
+            '',
             'line 2',
             'line 4',
             'line 5',

@@ -48,7 +48,7 @@ const id = setInterval(() => {
     if (--ticks < 0) {
         clearInterval(id);
         manager.update(['✔ Success', '', 'Messages:'], 0);
-        manager.unhook();
+        manager.unhook(false);
     } else {
         const frame = frames[(i = ++i % frames.length)];
         const message = messages[(j = Math.round(ticks / 10) % messages.length)];
@@ -68,9 +68,17 @@ Method to get the object to control the streams (`stdout`, `stderr`) update. Ret
 
 Hook stdout and stderr streams. Returns success status.
 
-### unhook()
+### unhook([separateHistory])
 
 Unhooks both stdout and stderr streams and print their story of logs. Returns success status.
+
+#### separateHistory
+
+Type: `boolean`
+
+Default: `false`
+
+If `true`, will add an empty line to the history output for individual recorded lines and console logs.
 
 ### update(rows, [from])
 

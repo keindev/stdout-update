@@ -37,9 +37,9 @@ export class UpdateManager {
         return this.isActive;
     }
 
-    public unhook(): boolean {
+    public unhook(separateHistory: boolean = true): boolean {
         if (this.isActive) {
-            this.hooks.forEach((hook): void => hook.inactive());
+            this.hooks.forEach((hook): void => hook.inactive(separateHistory));
             this.clear();
         }
 
