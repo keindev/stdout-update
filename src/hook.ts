@@ -41,7 +41,7 @@ export class Hook {
         };
     }
 
-    public inactive(separateHistory: boolean = false): void {
+    public inactive(separateHistory = false): void {
         const { history } = this;
 
         if (history.length) {

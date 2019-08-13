@@ -37,7 +37,7 @@ export class UpdateManager {
         return this.isActive;
     }
 
-    public unhook(separateHistory: boolean = true): boolean {
+    public unhook(separateHistory = true): boolean {
         if (this.isActive) {
             this.hooks.forEach((hook): void => hook.inactive(separateHistory));
             this.clear();
@@ -46,7 +46,7 @@ export class UpdateManager {
         return !this.isActive;
     }
 
-    public update(rows: string[], from: number = 0): void {
+    public update(rows: string[], from = 0): void {
         const { terminal } = this;
         const [hook] = this.hooks;
         const height = terminal.getHeight();
@@ -83,7 +83,7 @@ export class UpdateManager {
         return this.isActive;
     }
 
-    private clear(status: boolean = false): void {
+    private clear(status = false): void {
         this.isActive = status;
         this.lastLength = 0;
         this.outside = 0;
