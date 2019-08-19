@@ -7,8 +7,6 @@ cache: yarn
 install: yarn
 script:
     - yarn add codecov -g
-    - yarn lint
-    - yarn test
     - yarn build
 after_success:
     - codecov -f coverage/*.json
@@ -28,6 +26,5 @@ jobs:
 notifications:
     email:
         recipients:
-            - kein@tagproject.ru
-        on_success: change
+            - opensource@tagproject.ru
         on_failure: always
