@@ -12,19 +12,19 @@ jobs:
         steps:
             - uses: actions/checkout@master
 
-            - name: Use Node.js ${{ matrix.node }}
+            - name: ${{ format('Use Node.js {0}', matrix.node) }}
               uses: actions/setup-node@master
               with:
                   version: ${{ matrix.node }}
-              env:
-                  CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
-            - name: npm install, build and test
+            - name: yarn install
               run: |
                   npm install -g yarn
                   yarn add codecov -g
                   yarn install
-                  yarn build
 
+            - name: yarn build
+              run: yarn build
+# env: CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 # if: success && ${{ matrix.node_version }} == '10' && ${{ matrix.os }} == 'ubuntu-latest'
 # - run: codecov -f coverage/*.json
