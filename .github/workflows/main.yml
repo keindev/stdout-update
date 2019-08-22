@@ -2,7 +2,7 @@ name: Main
 on: [push, pull_request]
 jobs:
     test:
-        name: Test on node ${{ matrix.node }} and ${{ matrix.os }}
+        name: 'Node.js v${{ matrix.node }}.x, ${{ matrix.os }}'
         runs-on: ${{ matrix.os }}
         strategy:
             matrix:
@@ -12,12 +12,12 @@ jobs:
         steps:
             - uses: actions/checkout@master
 
-            - name: Use ${{ matrix.node }}
+            - name: 'use ${{ matrix.node }}'
               uses: actions/setup-node@master
               with:
                   version: ${{ matrix.node }}
 
-            - name: yarn install
+            - name: 'yarn install'
               run: |
                   npm install -g yarn
                   yarn add codecov -g
