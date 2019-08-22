@@ -7,11 +7,11 @@ jobs:
             os: [windows-latest, ubuntu-latest]
             node: [10, 12]
         steps:
-            name: os ${{ matrix.os }}, node.js ${{ matrix.node }}
+            - name: os ${{ matrix.os }}, node.js ${{ matrix.node }}
             - uses: actions/checkout@master
             - uses: actions/setup-node@v1
-            with:
-                version: ${{ matrix.node }}
+                with:
+                    version: ${{ matrix.node }}
             - run: npm install -g yarn
             - run: yarn add codecov -g
             - run: yarn install
