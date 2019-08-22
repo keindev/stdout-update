@@ -1,28 +1,30 @@
 name: Main
 on: [push, pull_request]
 jobs:
-  test:
-    name: Test on node ${{ matrix.node }} and ${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        node_version: [10, 12]
-        os: [ubuntu-latest, windows-latest, macos-latest]
+    test:
+        name: Test on node ${{ matrix.node }} and ${{ matrix.os }}
+        runs-on: ${{ matrix.os }}
+        strategy:
+            matrix:
+                node_version: [10, 12]
+                os: [ubuntu-latest, windows-latest, macos-latest]
 
-    steps:
-    - uses: actions/checkout@master
+        steps:
+            - uses: actions/checkout@master
 
-    - name: Use Node.js ${{ matrix.node }}
-      uses: actions/setup-node@master
-      with:
-        version: ${{ matrix.node }}
-      env:
-        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+            - name: Use Node.js ${{ matrix.node }}
+              uses: actions/setup-node@master
+              with:
+                  version: ${{ matrix.node }}
+              env:
+                  CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
-    - name: npm install, build and test
-      run: npm install -g yarn
-      run: yarn add codecov -g
-      run: yarn install
-      run: yarn build
+            - name: npm install, build and test
+              run: |
+                  npm install -g yarn
+                  yarn add codecov -g
+                  yarn install
+                  yarn build
+
 # if: success && ${{ matrix.node_version }} == '10' && ${{ matrix.os }} == 'ubuntu-latest'
 # - run: codecov -f coverage/*.json
