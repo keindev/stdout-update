@@ -4,19 +4,18 @@ jobs:
     Matrix build (win, ubuntu):
         strategy:
         matrix:
-            node_version: [10, 12]
             os: [windows-latest, ubuntu-latest]
+            node: [10, 12]
         steps:
-            name: Use Node.js ${{ matrix.node_version }}
+            name: os ${{ matrix.os }}, node.js ${{ matrix.node }}
             - uses: actions/checkout@master
-            - uses: actions/setup-node@master
-                with:
-                    version: ${{ matrix.node_version }}
-            env:
-                CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+            - uses: actions/setup-node@v1
+            with:
+                version: ${{ matrix.node }}
             - run: npm install -g yarn
             - run: yarn add codecov -g
             - run: yarn install
             - run: yarn build
+            # env: CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
             # if: success && ${{ matrix.node_version }} == '10' && ${{ matrix.os }} == 'ubuntu-latest'
-            - run: codecov -f coverage/*.json
+            # - run: codecov -f coverage/*.json
