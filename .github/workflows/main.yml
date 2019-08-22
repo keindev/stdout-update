@@ -6,13 +6,13 @@ jobs:
         runs-on: ${{ matrix.os }}
         strategy:
             matrix:
-                node_version: [10, 12]
+                node: [10, 12]
                 os: [ubuntu-latest, windows-latest, macos-latest]
 
         steps:
             - uses: actions/checkout@master
 
-            - name: ${{ format('Use Node.js {0}', matrix.node) }}
+            - name: Use ${{ matrix.node }}
               uses: actions/setup-node@master
               with:
                   version: ${{ matrix.node }}
