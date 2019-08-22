@@ -1,20 +1,17 @@
-name: Build
+name: Main
 
 on: [push, pull_request]
 
 jobs:
   build:
-    name: Test on node ${{ matrix.node_version }} and ${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
-    
-    strategy:
-      matrix:
-        node_version: [10, 12]
-        os: [windows-latest, ubuntu-latest]
-        
-    steps:
-      env:
+    env:
         CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
+    strategy:
+        matrix:
+            node_version: [10, 12]
+            os: [windows-latest, ubuntu-latest]
+
     - uses: actions/checkout@master
     - name: Use Node.js ${{ matrix.node_version }}
       uses: actions/setup-node@master
