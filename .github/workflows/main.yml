@@ -7,9 +7,9 @@ jobs:
             node_version: [10, 12]
             os: [windows-latest, ubuntu-latest]
         steps:
+            name: Use Node.js ${{ matrix.node_version }}
             - uses: actions/checkout@master
-            - name: Use Node.js ${{ matrix.node_version }}
-            uses: actions/setup-node@master
+            - uses: actions/setup-node@master
                 with:
                     version: ${{ matrix.node_version }}
             env:
