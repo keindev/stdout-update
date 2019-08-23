@@ -41,7 +41,7 @@ jobs:
             - uses: actions/checkout@master
             - uses: actions/bin/filter@master
               with:
-                  args: 'branch master tag'
+                  args: 'branch dev'
 
             - name: Node.js setup
               uses: actions/setup-node@master
