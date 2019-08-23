@@ -26,8 +26,7 @@ jobs:
 
             - name: Publish to registry
               uses: actions/npm@master
-                env:
+              env:
                   NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
-                with:
+              with:
                   args: 'publish --access public'
-
