@@ -5,7 +5,6 @@
     <a href="https://codecov.io/gh/keindev/stdout-update"><img src="https://codecov.io/gh/keindev/stdout-update/branch/master/graph/badge.svg" /></a>
     <a href="https://www.npmjs.com/package/stdout-update"><img alt="npm" src="https://img.shields.io/npm/v/stdout-update.svg"></a>
     <a href="https://www.npmjs.com/package/stdout-update"><img alt="NPM" src="https://img.shields.io/npm/l/stdout-update.svg"></a>
-    <a href="https://snyk.io/test/github/keindev/stdout-update?targetFile=package.json"><img src="https://snyk.io/test/github/keindev/stdout-update/badge.svg?targetFile=package.json" alt="Known Vulnerabilities" data-canonical-src="https://snyk.io/test/github/keindev/stdout-update?targetFile=package.json" style="max-width:100%;"></a>
 </p>
 
 Purely and accurately overwrites the previous output in the terminal, while maintaining the history of third-party logs.
