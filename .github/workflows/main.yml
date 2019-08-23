@@ -3,8 +3,15 @@ name: Main
 on: [push, pull_request]
 
 jobs:
+    manage:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Labels manage
+              uses: lannonbr/issue-label-manager-action@master
+
     build:
         name: 'Node.js ${{ matrix.node }}.x, ${{ matrix.os }}'
+        needs: [test]
         runs-on: ${{ matrix.os }}
         strategy:
             matrix:
@@ -14,21 +21,18 @@ jobs:
         steps:
             - uses: actions/checkout@master
 
-            - name: Issue Label Manager Action
-              uses: lannonbr/issue-label-manager-action@1.1.0
-
-            - name: node setup
+            - name: Node.js setup
               uses: actions/setup-node@master
               with:
                   version: ${{ matrix.node }}
 
-            - name: yarn build
+            - name: Yarn build
               run: |
                   npm install -g yarn
                   yarn install
                   yarn build
 
-            - name: coverage
+            - name: Code coverage report
               if: matrix.node == 10 && matrix.os == 'ubuntu-latest'
               env:
                   CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
