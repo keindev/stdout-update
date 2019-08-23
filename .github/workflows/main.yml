@@ -2,7 +2,7 @@ name: Main
 on: [push, pull_request]
 jobs:
     test:
-        name: 'Node.js v${{ matrix.node }}.x, ${{ matrix.os }}'
+        name: 'Node.js ${{ matrix.node }}.x, ${{ matrix.os }}'
         runs-on: ${{ matrix.os }}
         strategy:
             matrix:
@@ -12,19 +12,19 @@ jobs:
         steps:
             - uses: actions/checkout@master
 
-            - name: 'use ${{ matrix.node }}'
+            - name: node setup
               uses: actions/setup-node@master
               with:
                   version: ${{ matrix.node }}
 
-            - name: 'yarn install'
+            - name: yarn install
               run: |
                   npm install -g yarn
                   yarn add codecov -g
                   yarn install
 
             - name: yarn build
-              run: yarn build
+              run: yarn run build
 # env: CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 # if: success && ${{ matrix.node_version }} == '10' && ${{ matrix.os }} == 'ubuntu-latest'
 # - run: codecov -f coverage/*.json
