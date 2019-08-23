@@ -32,3 +32,10 @@ jobs:
               run: |
                   npm install -g codecov
                   codecov -f coverage/*.json
+
+            - name: Discord notification
+              uses: Ilshidur/action-discord@master
+              env:
+                  DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+              with:
+                  args: 'The project XXX has been publish test.'
