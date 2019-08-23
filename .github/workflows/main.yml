@@ -3,14 +3,6 @@ name: Main
 on: [push, pull_request]
 
 jobs:
-    Manage:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Labels manage
-              uses: lannonbr/issue-label-manager-action@master
-              env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
     Build:
         name: 'Node.js ${{ matrix.node }}.x, ${{ matrix.os }}'
         runs-on: ${{ matrix.os }}
