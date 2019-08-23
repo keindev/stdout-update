@@ -14,6 +14,9 @@ jobs:
         steps:
             - uses: actions/checkout@master
 
+            - name: Issue Label Manager Action
+              uses: lannonbr/issue-label-manager-action@1.1.0
+
             - name: node setup
               uses: actions/setup-node@master
               with:
@@ -24,6 +27,7 @@ jobs:
                   npm install -g yarn
                   yarn install
                   yarn build
+
             - name: coverage
               if: matrix.node == 10 && matrix.os == 'ubuntu-latest'
               env:

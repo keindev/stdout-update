@@ -1,0 +1,5 @@
+[
+    { "name": "release", "description": "Release candidate", "color": "#1561c4" },
+    { "name": "dependencies", "description": "Pull requests that update a dependency file", "color": "#0366d6" },
+    { "name": "security", "description": "Pull requests that address a security vulnerability", "color": "#ee0701" }
+]
