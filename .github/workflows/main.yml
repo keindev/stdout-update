@@ -11,7 +11,6 @@ jobs:
 
     build:
         name: 'Node.js ${{ matrix.node }}.x, ${{ matrix.os }}'
-        needs: [test]
         runs-on: ${{ matrix.os }}
         strategy:
             matrix:
