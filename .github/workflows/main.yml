@@ -25,7 +25,7 @@ jobs:
                   yarn install
                   yarn build
             - name: coverage
-              if: matrix.node >= 10 && matrix.os == 'ubuntu-latest'
+              if: matrix.node == 10 && matrix.os == 'ubuntu-latest'
               env:
                   CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
               run: |
