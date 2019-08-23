@@ -22,9 +22,10 @@ jobs:
                   npm install -g yarn
                   yarn add codecov -g
                   yarn install
+                  yarn lint
 
             - name: yarn build
-              run: yarn run build
+              run: yarn build
 # env: CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 # if: success && ${{ matrix.node_version }} == '10' && ${{ matrix.os }} == 'ubuntu-latest'
 # - run: codecov -f coverage/*.json
