@@ -40,7 +40,8 @@ jobs:
         steps:
             - uses: actions/checkout@master
             - uses: actions/bin/filter@master
-            - args: 'branch master tag'
+              with:
+                  args: 'branch master tag'
 
             - name: Node.js setup
               uses: actions/setup-node@master
