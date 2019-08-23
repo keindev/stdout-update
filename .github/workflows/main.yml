@@ -15,23 +15,23 @@ jobs:
             - uses: actions/checkout@master
 
             - name: Node.js setup
-                uses: actions/setup-node@master
-                with:
-                    version: ${{ matrix.node }}
+              uses: actions/setup-node@master
+              with:
+                  version: ${{ matrix.node }}
 
             - name: Yarn build
-                run: |
-                    npm install -g yarn
-                    yarn install
-                    yarn build
+              run: |
+                  npm install -g yarn
+                  yarn install
+                  yarn build
 
             - name: Code coverage report
-                if: matrix.node == 10 && matrix.os == 'ubuntu-latest'
-                env:
-                    CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-                run: |
-                    npm install -g codecov
-                    codecov -f coverage/*.json
+              if: matrix.node == 10 && matrix.os == 'ubuntu-latest'
+              env:
+                  CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+              run: |
+                  npm install -g codecov
+                  codecov -f coverage/*.json
     publish:
         name: Publish package
         needs: build
@@ -40,18 +40,18 @@ jobs:
         steps:
             - uses: actions/checkout@master
             - uses: actions/bin/filter@master
-                args: branch master tag
+              args: branch master tag
 
             - name: Node.js setup
-                uses: actions/setup-node@master
-                with:
-                    version: 10
+              uses: actions/setup-node@master
+              with:
+                  version: 10
 
             - name: Yarn build
-                run: |
-                    npm install -g yarn
-                    yarn install
-                    yarn build
+              run: |
+                  npm install -g yarn
+                  yarn install
+                  yarn build
 
 #            - name: Publish to registry
 #                uses: actions/npm@master
