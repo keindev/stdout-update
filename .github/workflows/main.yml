@@ -23,7 +23,8 @@ jobs:
                   yarn add codecov -g
                   yarn install
                   yarn build
-
-# env: CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-# if: success && ${{ matrix.node_version }} == '10' && ${{ matrix.os }} == 'ubuntu-latest'
-# - run: codecov -f coverage/*.json
+            - name: coverage
+              if: matrix.node >= 10 && matrix.os == ubuntu-latest
+              env:
+                  CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+              run: codecov -f coverage/*.json
