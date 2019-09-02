@@ -56,7 +56,7 @@ describe('UpdateManager', (): void => {
 
         expect($stdout.__stack.length).toBe(list.length - ($manager.getOutside() - position) + 1);
         expect($stdout.__stack).toStrictEqual([
-            ansiEscapes.eraseLines(MockWriteStream.ROWS + 1),
+            ansiEscapes.eraseLines(terminal.getHeight() + 1),
             'line 5',
             'line 6',
             'line 7',
