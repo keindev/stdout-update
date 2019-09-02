@@ -47,9 +47,9 @@ jobs:
               if: matrix.node == 10 && matrix.os == 'ubuntu-latest' && startsWith(github.ref, 'refs/tags/')
               uses: actions/npm@master
               env:
-                  NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+                  NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
               with:
-                  args: 'publish --access public'
+                  args: 'publish'
             # see https://github.com/actions/bin/issues/66
             - name: Notify on publish
               if: matrix.node == 10 && matrix.os == 'ubuntu-latest' && startsWith(github.ref, 'refs/tags/')
