@@ -38,7 +38,7 @@ describe('Wrapper', (): void => {
 
     it('Removes last row if it contained only ansi escape codes', (): void => {
         expect(
-            stripAnsi(wrap(red('helloworld'), 2))
+            stripAnsi(wrap(red('absolution'), 2))
                 .split('\n')
                 .every((line): boolean => line.length === 2)
         ).toBeTruthy();
