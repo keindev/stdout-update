@@ -55,18 +55,34 @@ describe('UpdateManager', (): void => {
         $manager.update(list, position);
 
         expect($stdout.__stack.length).toBe(list.length - ($manager.getOutside() - position) + 1);
-        expect($stdout.__stack).toStrictEqual([
-            ansiEscapes.eraseLines(terminal.getHeight() + 1),
-            'line 5',
-            'line 6',
-            'line 7',
-            'line 8',
-            'line 9',
-            'line 10',
-            'line 11',
-            'line 12',
-            Wrapper.EMPTY,
-        ]);
+
+        if (process.platform === 'win32') {
+            expect($stdout.__stack).toStrictEqual([
+                ansiEscapes.eraseLines(terminal.getHeight() + 1),
+                'line 4',
+                'line 5',
+                'line 6',
+                'line 7',
+                'line 8',
+                'line 9',
+                'line 10',
+                'line 11',
+                Wrapper.EMPTY,
+            ]);
+        } else {
+            expect($stdout.__stack).toStrictEqual([
+                ansiEscapes.eraseLines(terminal.getHeight() + 1),
+                'line 5',
+                'line 6',
+                'line 7',
+                'line 8',
+                'line 9',
+                'line 10',
+                'line 11',
+                'line 12',
+                Wrapper.EMPTY,
+            ]);
+        }
     });
 
     it('Unhook', (): void => {
