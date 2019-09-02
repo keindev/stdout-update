@@ -52,7 +52,7 @@ jobs:
               with:
                   args: '**${{github.repository}}** package has been published'
             - name: Notify on failure
-              if: job.steps.build_package.status == failure()
+              if: matrix.node == 10 && matrix.os == 'ubuntu-latest' && job.steps.build_package.status == failure()
               uses: Ilshidur/action-discord@master
               env:
                   DISCORD_WEBHOOK: ${{ secrets.DISCORD_FAILURE_BUILD_WEBHOOK }}
