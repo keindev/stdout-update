@@ -8,8 +8,11 @@ src/
 # Dependency directories
 node_modules/
 
+#Actions
+.github/
+
 # Configs
-.vscode
+.vscode/
 .env
 .editorconfig
 .gitattributes
