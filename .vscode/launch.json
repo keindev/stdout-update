@@ -2,14 +2,14 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Node.js (yarn)",
+            "name": "Exmple app.js",
             "type": "node",
             "request": "launch",
             "outputCapture": "std",
             "console": "integratedTerminal",
             "cwd": "${workspaceFolder}",
-            "runtimeExecutable": "yarn",
-            "runtimeArgs": ["run", "debug"],
+            "runtimeExecutable": "node",
+            "runtimeArgs": ["--nolazy", "--inspect-brk=9229", "example/app.js"],
             "port": 9229
         }
     ]

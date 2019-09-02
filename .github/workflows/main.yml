@@ -1,28 +1,60 @@
-name: Build
+name: Main
 
-on: [push, pull_request]
+on:
+    push:
+    pull_request:
+    schedule:
+        - cron: '0 15 * * *'
 
 jobs:
-  build:
-    name: Test on node ${{ matrix.node_version }} and ${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
-    
-    strategy:
-      matrix:
-        node_version: [10, 12]
-        os: [windows-latest, ubuntu-latest]
-        
-    steps:
-      env:
-        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-    - uses: actions/checkout@master
-    - name: Use Node.js ${{ matrix.node_version }}
-      uses: actions/setup-node@master
-      with:
-        version: ${{ matrix.node_version }}
-    - run: npm install -g yarn
-    - run: yarn add codecov -g
-    - run: yarn install
-    - run: yarn build
-    if: success && ${{ matrix.node_version }} == '10' && ${{ matrix.os }} == 'ubuntu-latest'
-    - run: codecov -f coverage/*.json
+    build:
+        name: Node.js ${{ matrix.node }}.x, ${{ matrix.os }}
+
+        runs-on: ${{ matrix.os }}
+
+        strategy:
+            matrix:
+                node: [10, 12]
+                os: [ubuntu-latest, windows-latest, macos-latest]
+
+        steps:
+            - uses: actions/checkout@master
+            - name: Checkout
+              uses: actions/setup-node@master
+              with:
+                  version: ${{ matrix.node }}
+            - name: Install
+              run: yarn install
+            - id: build_package
+              name: Build
+              run: yarn build
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            - name: Coverage report
+              if: matrix.node == 10 && matrix.os == 'ubuntu-latest'
+              uses: codecov/codecov-action@v1.0.2
+              with:
+                  token: ${{ secrets.CODECOV_TOKEN }}
+            # see https://github.com/actions/bin/issues/66
+            - name: Publish package
+              if: matrix.node == 10 && matrix.os == 'ubuntu-latest' && startsWith(github.ref, 'refs/tags/')
+              uses: actions/npm@master
+              env:
+                  NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+              with:
+                  args: 'publish --access public'
+            # see https://github.com/actions/bin/issues/66
+            - name: Notify on publish
+              if: matrix.node == 10 && matrix.os == 'ubuntu-latest' && startsWith(github.ref, 'refs/tags/')
+              uses: Ilshidur/action-discord@master
+              env:
+                  DISCORD_WEBHOOK: ${{ secrets.DISCORD_PUBLISH_PACKAGE_WEBHOOK }}
+              with:
+                  args: '**${{github.repository}}** package has been published'
+            - name: Notify on failure
+              if: matrix.node == 10 && matrix.os == 'ubuntu-latest' && job.steps.build_package.status == failure()
+              uses: Ilshidur/action-discord@master
+              env:
+                  DISCORD_WEBHOOK: ${{ secrets.DISCORD_FAILURE_BUILD_WEBHOOK }}
+              with:
+                  args: '**${{github.repository}}** build is failed.\n```yaml\nnode: ${{ matrix.node }}\nos: ${{ matrix.os }}\naction: ${{github.event_name}}```\n__link__: ||https://github.com/${{github.repository}}/commit/${{github.sha}}||'
