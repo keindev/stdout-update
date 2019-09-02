@@ -47,28 +47,30 @@ export class UpdateManager {
     }
 
     public update(rows: string[], from = 0): void {
-        const { terminal } = this;
-        const [hook] = this.hooks;
-        const height = terminal.getHeight();
-        const width = terminal.getWidth();
-        const position = from > height ? height - 1 : Math.max(0, Math.min(height - 1, from));
-        const actualLength = this.lastLength - position;
-        const outside = Math.max(actualLength - height, this.outside);
-        let output = rows.reduce<string[]>((acc, row): string[] => acc.concat(this.wrapper.wrap(row, width)), []);
+        if (rows.length) {
+            const { terminal } = this;
+            const [hook] = this.hooks;
+            const height = terminal.getHeight();
+            const width = terminal.getWidth();
+            const position = from > height ? height - 1 : Math.max(0, Math.min(height - 1, from));
+            const actualLength = this.lastLength - position;
+            const outside = Math.max(actualLength - height, this.outside);
+            let output = rows.reduce<string[]>((acc, row): string[] => acc.concat(this.wrapper.wrap(row, width)), []);
 
-        if (height <= actualLength) {
-            hook.clear(height);
+            if (height <= actualLength) {
+                hook.clear(height);
 
-            if (position < outside) {
-                output = output.slice(outside - position + 1);
+                if (position < outside) {
+                    output = output.slice(outside - position + 1);
+                }
+            } else if (actualLength) {
+                hook.clear(actualLength);
             }
-        } else if (actualLength) {
-            hook.clear(actualLength);
-        }
 
-        hook.write(output.join(Terminal.EOL) + Terminal.EOL);
-        this.lastLength = outside ? outside + output.length + 1 : output.length;
-        this.outside = Math.max(this.lastLength - height, this.outside);
+            hook.write(output.join(Terminal.EOL) + Terminal.EOL);
+            this.lastLength = outside ? outside + output.length + 1 : output.length;
+            this.outside = Math.max(this.lastLength - height, this.outside);
+        }
     }
 
     public getLastLength(): number {
