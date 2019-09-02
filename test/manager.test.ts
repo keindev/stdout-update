@@ -3,6 +3,7 @@ import ansiEscapes from 'ansi-escapes';
 import { UpdateManager } from '../src/update-manager';
 import { MockWriteStream } from './__mocks__/stream.mock';
 import { Wrapper } from '../src/wrapper';
+import { Terminal } from '../src/terminal';
 
 describe('UpdateManager', (): void => {
     const $stdout = new MockWriteStream();
@@ -37,11 +38,12 @@ describe('UpdateManager', (): void => {
     });
 
     it('Update terminal active area', (): void => {
+        const terminal: Terminal = new Terminal($stdout);
         const list: string[] = [];
         const position = 10;
         let i = 0;
 
-        while (i <= MockWriteStream.ROWS) list.push(`line ${i++}`);
+        while (i <= terminal.getHeight()) list.push(`line ${i++}`);
 
         $manager.update([...list, ...list]);
         $stdout.clear();
