@@ -1,0 +1,30 @@
+language: node_js
+sudo: false
+node_js:
+    - '12'
+    - '10'
+cache: yarn
+install: yarn
+script:
+    - yarn add codecov -g
+    - yarn build
+after_success:
+    - codecov -f coverage/*.json
+jobs:
+    include:
+        - stage: npm release
+          if: tag IS present
+          node_js: '10'
+          script: yarn build
+          deploy:
+              provider: npm
+              email: '$NPM_EMAIL'
+              api_key: '$NPM_TOKEN'
+              skip_cleanup: true
+              on:
+                  tags: true
+notifications:
+    email:
+        recipients:
+            - opensource@tagproject.ru
+        on_failure: always
