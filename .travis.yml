@@ -7,6 +7,8 @@ os:
     - linux
     - osx
     - windows
+env:
+    - YARN_GPG=no
 cache: yarn
 install: yarn
 script:
@@ -19,6 +21,7 @@ jobs:
         - stage: npm release
           if: tag IS present
           node_js: '10'
+          os: linux
           script: yarn build
           deploy:
               provider: npm
