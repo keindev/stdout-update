@@ -1,7 +1,7 @@
 <p align="center"><img width="100%" src="https://cdn.jsdelivr.net/gh/keindev/stdout-update/media/logo.svg" alt="stdout-update logo"></p>
 
 <p align="center">
-    <a href="https://travis-ci.org/keindev/stdout-update"><img src="https://travis-ci.org/keindev/stdout-update.svg?branch=master" alt="Build Status"></a>
+    <a href="https://travis-ci.com/keindev/stdout-update"><img src="https://travis-ci.com/keindev/stdout-update.svg?branch=master" alt="Build Status"></a>
     <a href="https://codecov.io/gh/keindev/stdout-update"><img src="https://codecov.io/gh/keindev/stdout-update/branch/master/graph/badge.svg" /></a>
     <a href="https://www.npmjs.com/package/stdout-update"><img alt="npm" src="https://img.shields.io/npm/v/stdout-update.svg"></a>
     <a href="https://www.npmjs.com/package/stdout-update"><img alt="NPM" src="https://img.shields.io/npm/l/stdout-update.svg"></a>
