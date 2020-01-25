@@ -2190,10 +2190,10 @@ getpass@^0.1.1:
   dependencies:
     assert-plus "^1.0.0"
 
-ghinfo@^1.0.5:
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/ghinfo/-/ghinfo-1.0.5.tgz#66068eb283bcf3c1a424fe6e65f767b9c66a88b2"
-  integrity sha512-RAKfM9cdjI4DbpnXROqORGWrdK7SHvjt8iEOT2lJ0TBB+hORAcTTlCEPGdqczB6zo4Wghp6utsyn+5lPoqs8rw==
+ghinfo@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/ghinfo/-/ghinfo-1.0.6.tgz#d9c4cbd12941d5e36e2b96ecb2b8602042e67087"
+  integrity sha512-YcaT7hMZYA99chFqag+Lz3/JtzpS3WZTIcjRl1O9BzK/H8YbjBCIk4AYi6ZfzeeIBoS+3BWDjroFgSQx8yEObQ==
   dependencies:
     "@types/parse-github-url" "^1.0.0"
     figures "^3.1.0"
