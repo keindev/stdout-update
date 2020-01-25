@@ -1,5 +1,5 @@
-import { Terminal } from '../src/terminal';
-import { MockWriteStream } from './__mocks__/stream.mock';
+import { MockWriteStream } from '../__mocks__/stream.mock';
+import { Terminal } from '../terminal';
 
 const stdout: MockWriteStream = new MockWriteStream();
 const terminal: Terminal = new Terminal(stdout);

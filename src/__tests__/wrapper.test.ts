@@ -1,6 +1,6 @@
 import stripAnsi from 'strip-ansi';
-import { Wrapper } from '../src/wrapper';
-import { Terminal } from '../src/terminal';
+import { Wrapper } from '../wrapper';
+import { Terminal } from '../terminal';
 
 let wrapper: Wrapper;
 

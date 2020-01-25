@@ -1,9 +1,9 @@
 /* eslint-disable no-underscore-dangle */
 import ansiEscapes from 'ansi-escapes';
-import { UpdateManager } from '../src/update-manager';
-import { MockWriteStream } from './__mocks__/stream.mock';
-import { Wrapper } from '../src/wrapper';
-import { Terminal } from '../src/terminal';
+import { MockWriteStream } from '../__mocks__/stream.mock';
+import { UpdateManager } from '../update-manager';
+import { Wrapper } from '../wrapper';
+import { Terminal } from '../terminal';
 
 describe('UpdateManager', (): void => {
     const $stdout = new MockWriteStream();
