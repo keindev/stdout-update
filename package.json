@@ -62,7 +62,7 @@
         "cspell": "^4.0.28",
         "eslint": "^6.3.0",
         "eslint-config-airbnb-base": "^14.0.0",
-        "eslint-config-prettier": "^6.2.0",
+        "eslint-config-prettier": "^6.9.0",
         "eslint-plugin-import": "^2.18.2",
         "eslint-plugin-jest": "^22.17.0",
         "husky": "^4.2.1",
