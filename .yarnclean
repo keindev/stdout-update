@@ -1,5 +1,6 @@
 # test directories
 __tests__
+__mocks__
 test
 tests
 powered-test
