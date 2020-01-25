@@ -1,20 +1,21 @@
-import { MockWriteStream } from '../__mocks__/stream.mock';
+/* eslint-disable jest/no-mocks-import */
+import { WriteStream } from '../__mocks__/WriteStream.mock';
 import { Terminal } from '../terminal';
 
-const stdout: MockWriteStream = new MockWriteStream();
+const stdout: WriteStream = new WriteStream();
 const terminal: Terminal = new Terminal(stdout);
 
 describe('Terminal', (): void => {
     it('Size', (): void => {
-        expect(stdout).toBeInstanceOf(MockWriteStream);
+        expect(stdout).toBeInstanceOf(WriteStream);
         expect(terminal).toBeInstanceOf(Terminal);
 
         if (process.platform === 'win32') {
-            expect(terminal.getWidth()).toBe(MockWriteStream.COLUMNS - 1);
-            expect(terminal.getHeight()).toBe(MockWriteStream.ROWS - 1);
+            expect(terminal.getWidth()).toBe(WriteStream.COLUMNS - 1);
+            expect(terminal.getHeight()).toBe(WriteStream.ROWS - 1);
         } else {
-            expect(terminal.getWidth()).toBe(MockWriteStream.COLUMNS);
-            expect(terminal.getHeight()).toBe(MockWriteStream.ROWS);
+            expect(terminal.getWidth()).toBe(WriteStream.COLUMNS);
+            expect(terminal.getHeight()).toBe(WriteStream.ROWS);
         }
     });
 });

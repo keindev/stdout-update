@@ -1,22 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable class-methods-use-this */
-import { MockWritable } from './writable.mock';
+import tty from 'tty';
 
-export class MockWriteStream extends MockWritable implements NodeJS.WriteStream {
+export class WriteStream extends tty.WriteStream {
     public static ROWS = 12;
     public static COLUMNS = 80;
-    public readonly readable: boolean = false;
-    public readonly writable: boolean = true;
-    public readonly writableFinished: boolean = false;
 
     public columns: number;
     public rows: number;
 
     public __stack: any[] = [];
 
-    public constructor(columns: number = MockWriteStream.COLUMNS, rows: number = MockWriteStream.ROWS) {
-        super();
+    constructor(columns: number = WriteStream.COLUMNS, rows: number = WriteStream.ROWS) {
+        super(0);
 
         this.columns = columns;
         this.rows = rows;
