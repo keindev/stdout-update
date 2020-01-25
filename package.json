@@ -60,21 +60,21 @@
         "@types/jest": "^24.0.18",
         "@types/node": "^12.7.4",
         "@typescript-eslint/eslint-plugin": "^2.1.0",
-        "@typescript-eslint/parser": "^2.1.0",
+        "@typescript-eslint/parser": "^2.17.0",
         "changelog-guru": "^1.0.0",
         "cspell": "^4.0.28",
         "eslint": "^6.3.0",
         "eslint-config-airbnb-base": "^14.0.0",
-        "eslint-config-prettier": "^6.2.0",
+        "eslint-config-prettier": "^6.9.0",
         "eslint-plugin-import": "^2.18.2",
         "eslint-plugin-jest": "^22.17.0",
         "ghinfo": "^1.0.5",
-        "husky": "^3.0.5",
+        "husky": "^4.2.1",
         "jest": "^24.9.0",
         "npm-run-all": "^4.1.5",
         "prettier": "^1.18.2",
         "rimraf": "^3.0.0",
         "ts-jest": "^24.0.2",
-        "typescript": "^3.6.2"
+        "typescript": "^3.7.5"
     }
 }
