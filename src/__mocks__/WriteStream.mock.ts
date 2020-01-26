@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable class-methods-use-this */
-import tty from 'tty';
+import fs from 'fs';
 
-export class WriteStream extends tty.WriteStream {
+export class WriteStream extends fs.WriteStream {
     public static ROWS = 12;
     public static COLUMNS = 80;
 
@@ -13,7 +13,7 @@ export class WriteStream extends tty.WriteStream {
     public __stack: any[] = [];
 
     constructor(columns: number = WriteStream.COLUMNS, rows: number = WriteStream.ROWS) {
-        super(1);
+        super();
 
         this.columns = columns;
         this.rows = rows;
