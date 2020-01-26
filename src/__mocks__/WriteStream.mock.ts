@@ -13,7 +13,7 @@ export class WriteStream extends tty.WriteStream {
     public __stack: any[] = [];
 
     constructor(columns: number = WriteStream.COLUMNS, rows: number = WriteStream.ROWS) {
-        super(0);
+        super(1);
 
         this.columns = columns;
         this.rows = rows;
