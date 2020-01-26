@@ -1,9 +1,10 @@
 /* eslint-disable jest/no-mocks-import */
+import tty from 'tty';
 import { WriteStream } from '../__mocks__/WriteStream.mock';
 import { Terminal } from '../terminal';
 
-const stdout: WriteStream = new WriteStream();
-const terminal: Terminal = new Terminal(stdout);
+const stdout = (new WriteStream() as unknown) as WriteStream & tty.WriteStream;
+const terminal = new Terminal(stdout);
 
 describe('Terminal', (): void => {
     it('Size', (): void => {

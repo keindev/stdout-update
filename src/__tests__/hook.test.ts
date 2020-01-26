@@ -1,10 +1,11 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable jest/no-mocks-import */
+import tty from 'tty';
 import ansiEscapes from 'ansi-escapes';
 import { WriteStream } from '../__mocks__/WriteStream.mock';
 import { Hook } from '../hook';
 
-const stream = new WriteStream();
+const stream = (new WriteStream() as unknown) as WriteStream & tty.WriteStream;
 const hook = new Hook(stream);
 const callback = jest.fn();
 

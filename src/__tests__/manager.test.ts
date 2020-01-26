@@ -1,13 +1,14 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable jest/no-mocks-import */
+import tty from 'tty';
 import ansiEscapes from 'ansi-escapes';
 import { WriteStream } from '../__mocks__/WriteStream.mock';
 import { UpdateManager } from '../update-manager';
 import { Wrapper } from '../wrapper';
 import { Terminal } from '../terminal';
 
-const stdout = new WriteStream();
-const stderr = new WriteStream();
+const stdout = (new WriteStream() as unknown) as WriteStream & tty.WriteStream;
+const stderr = (new WriteStream() as unknown) as WriteStream & tty.WriteStream;
 const manager = UpdateManager.getInstance(stdout, stderr);
 
 describe('UpdateManager', (): void => {
