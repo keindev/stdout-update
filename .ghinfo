@@ -28,7 +28,8 @@
         "homepage": "https://github.com/keindev/stdout-update#readme"
     },
     "files": {
-        "demo": "media/demo.yml",
-        "logo": "media/logo.svg"
+        "demo": "media/demo.gif",
+        "logo": "media/logo.svg",
+        "social-preview": "media/social-preview.png"
     }
 }
