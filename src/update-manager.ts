@@ -3,7 +3,7 @@ import { Terminal } from './terminal';
 import { Wrapper } from './wrapper';
 
 export class UpdateManager {
-    private static instance: UpdateManager;
+    private static instance?: UpdateManager;
     private hooks: Hook[];
     private wrapper: Wrapper;
     private terminal: Terminal;

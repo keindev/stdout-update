@@ -1,9 +1,9 @@
+/* eslint-disable jest/no-mocks-import */
 import stripAnsi from 'strip-ansi';
-import { Wrapper } from '../src/wrapper';
-import { Terminal } from '../src/terminal';
+import { Wrapper } from '../wrapper';
+import { Terminal } from '../terminal';
 
 let wrapper: Wrapper;
-
 const red = (s: string): string => `\u001B[31m${s}\u001b[39m`;
 const wrap = (s: string, l: number): string => wrapper.wrap(s, l).join(Terminal.EOL);
 const mapWrap = (a: string[], l: number): string => a.map((s): string => wrap(s, l)).join(Terminal.EOL);
