@@ -4,7 +4,6 @@ import tty from 'tty';
 import ansiEscapes from 'ansi-escapes';
 import { WriteStream } from '../__mocks__/WriteStream.mock';
 import { UpdateManager } from '../update-manager';
-import { Wrapper } from '../wrapper';
 import { Terminal } from '../terminal';
 
 const stdout = (new WriteStream() as unknown) as WriteStream & tty.WriteStream;
@@ -19,9 +18,9 @@ describe('UpdateManager', (): void => {
 
     it('Hook stream', (): void => {
         expect(manager).toEqual(UpdateManager.getInstance());
-        expect(manager.isHooked()).toBeFalsy();
+        expect(manager.isHooked).toBeFalsy();
         expect(manager.hook()).toBeTruthy();
-        expect(manager.isHooked()).toBeTruthy();
+        expect(manager.isHooked).toBeTruthy();
         expect(stdout.__stack).toStrictEqual([ansiEscapes.cursorHide]);
     });
 
@@ -29,7 +28,7 @@ describe('UpdateManager', (): void => {
         manager.update(['line 1']);
         manager.update(['line 2'], 1);
 
-        expect(stdout.__stack).toStrictEqual(['line 1', Wrapper.EMPTY, 'line 2', Wrapper.EMPTY]);
+        expect(stdout.__stack).toStrictEqual(['line 1', '', 'line 2', '']);
     });
 
     it('Update lines with empty array', (): void => {
@@ -50,13 +49,13 @@ describe('UpdateManager', (): void => {
         manager.update([...list, ...list]);
         stdout.clear();
 
-        expect(manager.getLastLength()).toBe(list.length * 2);
-        expect(manager.getOutside()).toBe(list.length + 1);
+        expect(manager.lastLength).toBe(list.length * 2);
+        expect(manager.outside).toBe(list.length + 1);
         expect(stdout.__stack).toStrictEqual([]);
 
         manager.update(list, position);
 
-        expect(stdout.__stack.length).toBe(list.length - (manager.getOutside() - position) + 1);
+        expect(stdout.__stack.length).toBe(list.length - (manager.outside - position) + 1);
 
         if (process.platform === 'win32') {
             expect(stdout.__stack).toStrictEqual([
@@ -69,7 +68,7 @@ describe('UpdateManager', (): void => {
                 'line 9',
                 'line 10',
                 'line 11',
-                Wrapper.EMPTY,
+                '',
             ]);
         } else {
             expect(stdout.__stack).toStrictEqual([
@@ -82,13 +81,13 @@ describe('UpdateManager', (): void => {
                 'line 10',
                 'line 11',
                 'line 12',
-                Wrapper.EMPTY,
+                '',
             ]);
         }
     });
 
     it('Unhook stream', (): void => {
-        expect(manager.isHooked()).toBeTruthy();
+        expect(manager.isHooked).toBeTruthy();
         expect(manager.unhook()).toBeTruthy();
         expect(stdout.__stack).toStrictEqual([ansiEscapes.cursorShow]);
     });

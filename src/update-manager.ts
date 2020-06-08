@@ -4,20 +4,20 @@ import { Wrapper } from './wrapper';
 
 export class UpdateManager {
     private static instance?: UpdateManager;
-    private hooks: Hook[];
-    private wrapper: Wrapper;
-    private terminal: Terminal;
-    private lastLength = 0;
-    private outside = 0;
-    private isActive = false;
+    #hooks: Hook[];
+    #wrapper: Wrapper;
+    #terminal: Terminal;
+    #lastLength = 0;
+    #outside = 0;
+    #isActive = false;
 
     private constructor(stdout: NodeJS.WriteStream, stderr: NodeJS.WriteStream) {
-        this.hooks = [stdout, stderr].map((stream): Hook => new Hook(stream));
-        this.terminal = new Terminal(stdout);
-        this.wrapper = new Wrapper();
+        this.#hooks = [stdout, stderr].map((stream): Hook => new Hook(stream));
+        this.#terminal = new Terminal(stdout);
+        this.#wrapper = new Wrapper();
     }
 
-    public static getInstance(
+    static getInstance(
         stdout: NodeJS.WriteStream = process.stdout,
         stderr: NodeJS.WriteStream = process.stderr
     ): UpdateManager {
@@ -28,34 +28,45 @@ export class UpdateManager {
         return UpdateManager.instance;
     }
 
-    public hook(): boolean {
-        if (!this.isActive) {
-            this.hooks.forEach((hook): void => hook.active());
+    get lastLength(): number {
+        return this.#lastLength;
+    }
+
+    get outside(): number {
+        return this.#outside;
+    }
+
+    get isHooked(): boolean {
+        return this.#isActive;
+    }
+
+    hook(): boolean {
+        if (!this.#isActive) {
+            this.#hooks.forEach((hook) => hook.active());
             this.clear(true);
         }
 
-        return this.isActive;
+        return this.#isActive;
     }
 
-    public unhook(separateHistory = true): boolean {
-        if (this.isActive) {
-            this.hooks.forEach((hook): void => hook.inactive(separateHistory));
+    unhook(separateHistory = true): boolean {
+        if (this.#isActive) {
+            this.#hooks.forEach((hook) => hook.inactive(separateHistory));
             this.clear();
         }
 
-        return !this.isActive;
+        return !this.#isActive;
     }
 
-    public update(rows: string[], from = 0): void {
+    update(rows: string[], from = 0): void {
         if (rows.length) {
-            const { terminal } = this;
-            const [hook] = this.hooks;
-            const height = terminal.getHeight();
-            const width = terminal.getWidth();
+            const [hook] = this.#hooks;
+            const height = this.#terminal.getHeight();
+            const width = this.#terminal.getWidth();
             const position = from > height ? height - 1 : Math.max(0, Math.min(height - 1, from));
             const actualLength = this.lastLength - position;
             const outside = Math.max(actualLength - height, this.outside);
-            let output = rows.reduce<string[]>((acc, row): string[] => acc.concat(this.wrapper.wrap(row, width)), []);
+            let output = rows.reduce<string[]>((acc, row) => acc.concat(this.#wrapper.wrap(row, width)), []);
 
             if (height <= actualLength) {
                 hook.clear(height);
@@ -68,26 +79,14 @@ export class UpdateManager {
             }
 
             hook.write(output.join(Terminal.EOL) + Terminal.EOL);
-            this.lastLength = outside ? outside + output.length + 1 : output.length;
-            this.outside = Math.max(this.lastLength - height, this.outside);
+            this.#lastLength = outside ? outside + output.length + 1 : output.length;
+            this.#outside = Math.max(this.lastLength - height, this.outside);
         }
     }
 
-    public getLastLength(): number {
-        return this.lastLength;
-    }
-
-    public getOutside(): number {
-        return this.outside;
-    }
-
-    public isHooked(): boolean {
-        return this.isActive;
-    }
-
     private clear(status = false): void {
-        this.isActive = status;
-        this.lastLength = 0;
-        this.outside = 0;
+        this.#isActive = status;
+        this.#lastLength = 0;
+        this.#outside = 0;
     }
 }
