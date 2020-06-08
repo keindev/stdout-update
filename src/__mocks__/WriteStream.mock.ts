@@ -15,7 +15,7 @@ export class WriteStream {
         this.rows = rows;
     }
 
-    public write(str: any, encoding?: any, cb?: any): boolean {
+    public write(str: string): boolean {
         if (typeof str === 'string') {
             this.__stack.push(...str.split('\n'));
         } else {
