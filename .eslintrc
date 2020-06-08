@@ -15,7 +15,6 @@
     "plugins": ["@typescript-eslint", "jest"],
     "rules": {
         "@typescript-eslint/member-ordering": "error",
-        "@typescript-eslint/interface-name-prefix": ["error", { "prefixWithI": "always" }],
         "max-lines-per-function": ["error", { "max": 40 }],
         "import/prefer-default-export": 0,
         "import/extensions": 0,
