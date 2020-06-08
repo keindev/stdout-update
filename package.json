@@ -50,31 +50,31 @@
         "node": ">=10.0.0"
     },
     "dependencies": {
-        "ansi-escapes": "^4.3.0",
+        "ansi-escapes": "^4.3.1",
         "ansi-styles": "^4.2.1",
         "string-width": "^4.2.0",
         "strip-ansi": "^6.0.0"
     },
     "devDependencies": {
         "@types/ansi-styles": "^3.2.1",
-        "@types/jest": "^25.1.0",
-        "@types/node": "^14.0.11",
-        "@typescript-eslint/eslint-plugin": "^2.17.0",
-        "@typescript-eslint/parser": "^2.17.0",
+        "@types/jest": "^25.2.3",
+        "@types/node": "^14.0.12",
+        "@typescript-eslint/eslint-plugin": "^3.2.0",
+        "@typescript-eslint/parser": "^3.2.0",
         "changelog-guru": "^1.0.0",
-        "cspell": "^4.0.46",
-        "eslint": "^6.8.0",
-        "eslint-config-airbnb-base": "^14.0.0",
-        "eslint-config-prettier": "^6.9.0",
-        "eslint-plugin-import": "^2.20.0",
-        "eslint-plugin-jest": "^23.6.0",
+        "cspell": "^4.0.63",
+        "eslint": "^7.2.0",
+        "eslint-config-airbnb-base": "^14.1.0",
+        "eslint-config-prettier": "^6.11.0",
+        "eslint-plugin-import": "^2.21.1",
+        "eslint-plugin-jest": "^23.13.2",
         "ghinfo": "^1.0.6",
-        "husky": "^4.2.1",
-        "jest": "^25.1.0",
+        "husky": "^4.2.5",
+        "jest": "^26.0.1",
         "npm-run-all": "^4.1.5",
-        "prettier": "^2.0.2",
-        "rimraf": "^3.0.0",
-        "ts-jest": "^25.0.0",
-        "typescript": "^3.7.5"
+        "prettier": "^2.0.5",
+        "rimraf": "^3.0.2",
+        "ts-jest": "^26.1.0",
+        "typescript": "^3.9.5"
     }
 }
