@@ -67,7 +67,7 @@
         "eslint-config-airbnb-base": "^14.1.0",
         "eslint-config-prettier": "^6.11.0",
         "eslint-plugin-import": "^2.21.1",
-        "eslint-plugin-jest": "^23.13.2",
+        "eslint-plugin-jest": "^24.1.0",
         "ghinfo": "^1.0.6",
         "husky": "^4.2.5",
         "jest": "^26.0.1",
