@@ -51,7 +51,7 @@
     },
     "dependencies": {
         "ansi-escapes": "^4.3.1",
-        "ansi-styles": "^4.2.1",
+        "ansi-styles": "^5.0.0",
         "string-width": "^4.2.0",
         "strip-ansi": "^6.0.0"
     },
