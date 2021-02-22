@@ -69,7 +69,7 @@
         "eslint-plugin-import": "^2.21.1",
         "eslint-plugin-jest": "^23.13.2",
         "ghinfo": "^1.0.6",
-        "husky": "^4.2.5",
+        "husky": "^5.1.1",
         "jest": "^26.0.1",
         "npm-run-all": "^4.1.5",
         "prettier": "^2.0.5",
