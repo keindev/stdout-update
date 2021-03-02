@@ -10,6 +10,7 @@
 
 ### Methods
 
+- [erase](updatemanager.md#erase)
 - [hook](updatemanager.md#hook)
 - [unhook](updatemanager.md#unhook)
 - [update](updatemanager.md#update)
@@ -46,6 +47,22 @@ Rows count outside editable area
 **Returns:** *number*
 
 ## Methods
+
+### erase
+
+▸ **erase**(`count?`: *number*): *void*
+
+Removes from the bottom of output up the specified count of lines
+
+#### Parameters:
+
+Name | Type | Description |
+:------ | :------ | :------ |
+`count` | *number* | lines count to remove    |
+
+**Returns:** *void*
+
+___
 
 ### hook
 

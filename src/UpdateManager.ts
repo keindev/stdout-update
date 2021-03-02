@@ -56,7 +56,6 @@ export class UpdateManager {
 
   /**
    * Hook stdout and stderr streams
-   *
    * @returns Success status
    */
   hook(): boolean {
@@ -98,19 +97,29 @@ export class UpdateManager {
       let output = rows.reduce<string[]>((acc, row) => acc.concat(this.#wrapper.wrap(row, width)), []);
 
       if (height <= actualLength) {
-        hook.clear(height);
+        hook.erase(height);
 
         if (position < outside) {
           output = output.slice(outside - position + 1);
         }
       } else if (actualLength) {
-        hook.clear(actualLength);
+        hook.erase(actualLength);
       }
 
       hook.write(output.join(Terminal.EOL) + Terminal.EOL);
       this.#lastLength = outside ? outside + output.length + 1 : output.length;
       this.#outside = Math.max(this.lastLength - height, this.outside);
     }
+  }
+
+  /**
+   * Removes from the bottom of output up the specified count of lines
+   * @param count - lines count to remove
+   */
+  erase(count = this.#lastLength): void {
+    const [hook] = this.#hooks;
+
+    hook.erase(count);
   }
 
   private clear(status = false): void {

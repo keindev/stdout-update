@@ -17,7 +17,7 @@ describe('Hook', (): void => {
 
   it('Write (String)', (): void => {
     hook.write('line 1');
-    hook.clear(1);
+    hook.erase(1);
     stream.write('line 2', callback);
     hook.write('line 3');
 

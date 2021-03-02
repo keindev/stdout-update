@@ -54,9 +54,9 @@ export class Hook {
     this.write(ansiEscapes.cursorShow);
   }
 
-  clear(lines: number): void {
-    if (lines > 0) {
-      this.write(ansiEscapes.eraseLines(lines + 1));
+  erase(count: number): void {
+    if (count > 0) {
+      this.write(ansiEscapes.eraseLines(count + 1));
     }
   }
 
