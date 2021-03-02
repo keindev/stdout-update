@@ -6,7 +6,7 @@ on:
       - '*/*'
 
 jobs:
-  test-coverage:
+  coverage:
     runs-on: ubuntu-latest
     strategy:
       matrix:
