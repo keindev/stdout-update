@@ -21,18 +21,6 @@
         "yaml",
         "yml"
     ],
-    "ignorePaths": [
-        "**/package-lock.json",
-        "**/package.json",
-        "**/yarn.lock",
-        "**/node_modules/**",
-        "**/vscode-extension/**",
-        "**/.git/**",
-        "**/.vscode/**",
-        "**/.yarnclean",
-        "**/tsconfig.json",
-        "CHANGELOG.md",
-        "LICENSE"
-    ],
+    "ignorePaths": ["**/.git/**", "**/.vscode/**", "**/docs/**", "**/node_modules/**"],
     "words": ["tasktree", "quokka", "dependabot", "plusplus", "keindev", "codecov"]
 }
