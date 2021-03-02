@@ -16,15 +16,6 @@ Purely and accurately overwrites the previous output in the terminal, while main
 
 ## Install
 
-### Yarn
-
-```
-yarn add stdout-update
-
-```
-
-### NPM
-
 ```
 npm install stdout-update
 ```
@@ -61,59 +52,11 @@ const id = setInterval(() => {
 
 ## API
 
-### getInstance()
-
-Method to get the object to control the streams (`stdout`, `stderr`) update. Returns `UpdateManager` instance.
-
-### hook()
-
-Hook stdout and stderr streams. Returns success status.
-
-### unhook([separateHistory])
-
-Unhooks both stdout and stderr streams and print their story of logs. Returns success status.
-
-#### separateHistory
-
-Type: `boolean`
-
-Default: `false`
-
-If `true`, will add an empty line to the history output for individual recorded lines and console logs.
-
-### update(rows, [from])
-
-Method to get the object to control the streams (`stdout`, `stderr`) update. Returns `UpdateManager` instance.
-
-#### rows
-
-Type: `string[]`
-
-Text lines to write to standard output.
-
-#### from
-
-Type: `number`
-
-Default: `0`
-
-Index of the line starting from which the contents of the terminal are being overwritten.
-
-### getLastLength()
-
-Returns last printed rows count.
-
-### getOutside()
-
-Returns rows count outside editable area.
-
-### isHooked()
-
-Returns the activity status of the hook.
+Read the [API documentation](docs/api/index.md) for more information.
 
 ## Examples
 
-[tasktree-cli](https://github.com/keindev/tasktree) - Simple terminal task tree - helps you keep track of your tasks in a tree structure.
+[tasktree-cli](https://github.com/keindev/tasktree) - simple terminal task tree, helps you keep track of your tasks in a tree structure.
 
 ## License
 
