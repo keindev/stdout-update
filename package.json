@@ -1,80 +1,84 @@
 {
-    "name": "stdout-update",
-    "version": "1.5.0",
-    "description": "Updates the previous output in the terminal. Useful for correct rendering progress bars, animations, etc.",
-    "homepage": "https://github.com/keindev/stdout-update#readme",
-    "license": "MIT",
-    "author": "Daniil Ryazanov <kein@tagproject.ru>",
-    "keywords": [
-        "log",
-        "logger",
-        "logging",
-        "shell",
-        "update",
-        "refresh",
-        "overwrite",
-        "output",
-        "cli",
-        "stdout",
-        "update",
-        "terminal",
-        "term",
-        "console",
-        "indicator",
-        "progress"
-    ],
-    "main": "lib/update-manager.js",
-    "types": "lib/update-manager.d.ts",
-    "unpkg": "lib/update-manager.js",
-    "module": "lib/update-manager.js",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/keindev/stdout-update.git"
-    },
-    "bugs": {
-        "url": "https://github.com/keindev/stdout-update/issues"
-    },
-    "scripts": {
-        "prepare:clean": "rimraf lib coverage",
-        "check:lint": "eslint src/**/*.ts --fix",
-        "check:spell": "cspell -c .vscode/cspell.json --no-summary \"*.*\" \"**/*.ts\" \"**/*.js\"",
-        "check:test": "jest",
-        "generate:ghinfo": "ghinfo generate -d media -t utils",
-        "build:ts": "tsc",
-        "build": "npm-run-all prepare:* generate:* check:* build:*",
-        "util:changelog": "changelog generate",
-        "util:commit-msg": "changelog lint --message HUSKY_GIT_PARAMS --lowercase-only",
-        "util:pre-commit": "npm-run-all check:*"
-    },
-    "engines": {
-        "node": ">=10.0.0"
-    },
-    "dependencies": {
-        "ansi-escapes": "^4.3.1",
-        "ansi-styles": "^4.2.1",
-        "string-width": "^4.2.0",
-        "strip-ansi": "^6.0.0"
-    },
-    "devDependencies": {
-        "@types/ansi-styles": "^3.2.1",
-        "@types/jest": "^25.2.3",
-        "@types/node": "^14.0.12",
-        "@typescript-eslint/eslint-plugin": "^3.2.0",
-        "@typescript-eslint/parser": "^3.2.0",
-        "changelog-guru": "^1.0.0",
-        "cspell": "^4.0.63",
-        "eslint": "^7.2.0",
-        "eslint-config-airbnb-base": "^14.1.0",
-        "eslint-config-prettier": "^6.11.0",
-        "eslint-plugin-import": "^2.21.1",
-        "eslint-plugin-jest": "^23.13.2",
-        "ghinfo": "^1.0.6",
-        "husky": "^4.2.5",
-        "jest": "^26.0.1",
-        "npm-run-all": "^4.1.5",
-        "prettier": "^2.0.5",
-        "rimraf": "^3.0.2",
-        "ts-jest": "^26.1.0",
-        "typescript": "^3.9.5"
-    }
+  "name": "stdout-update",
+  "version": "1.6.1",
+  "description": "Updates the previous output in the terminal. Useful for correct rendering progress bars, animations, etc.",
+  "homepage": "https://github.com/keindev/stdout-update#readme",
+  "license": "MIT",
+  "author": "Daniil Ryazanov <kein@tagproject.ru>",
+  "keywords": [
+    "log",
+    "logger",
+    "logging",
+    "shell",
+    "update",
+    "refresh",
+    "overwrite",
+    "output",
+    "cli",
+    "stdout",
+    "update",
+    "terminal",
+    "term",
+    "console",
+    "indicator",
+    "progress"
+  ],
+  "main": "lib/UpdateManager.js",
+  "types": "lib/UpdateManager.d.ts",
+  "unpkg": "lib/UpdateManager.js",
+  "module": "lib/UpdateManager.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/keindev/stdout-update.git"
+  },
+  "bugs": {
+    "url": "https://github.com/keindev/stdout-update/issues"
+  },
+  "scripts": {
+    "prepare:clean": "rimraf lib coverage docs",
+    "check:lint": "eslint src/**/*.ts",
+    "check:spell": "cspell -c .vscode/cspell.json --no-summary \"README.md\" \"**/*.ts\" \"**/*.js\"",
+    "check:test": "jest",
+    "test": "npm-run-all check:*",
+    "generate:docs": "typedoc",
+    "generate:changelog": "exit 0 && changelog generate",
+    "generate:ghinfo": "ghinfo generate -d media -t utils",
+    "build:ts": "tsc",
+    "build": "npm-run-all prepare:* check:* generate:* build:*",
+    "util:commit-msg": "changelog lint --message HUSKY_GIT_PARAMS --lowercase-only",
+    "util:pre-commit": "npm-run-all check:*"
+  },
+  "engines": {
+    "node": ">=10.0.0"
+  },
+  "dependencies": {
+    "ansi-escapes": "^4.3.1",
+    "ansi-styles": "^5.1.0",
+    "string-width": "^4.2.2",
+    "strip-ansi": "^6.0.0"
+  },
+  "devDependencies": {
+    "@types/ansi-styles": "^3.2.1",
+    "@types/jest": "^26.0.20",
+    "@types/node": "^14.14.31",
+    "@typescript-eslint/eslint-plugin": "^4.16.1",
+    "@typescript-eslint/parser": "^4.16.1",
+    "changelog-guru": "^1.0.0",
+    "cspell": "^5.3.4",
+    "eslint": "^7.21.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jest": "^24.1.5",
+    "ghinfo": "^1.0.6",
+    "husky": "^5.1.3",
+    "jest": "^26.6.3",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.2.1",
+    "rimraf": "^3.0.2",
+    "ts-jest": "^26.5.2",
+    "typescript": "^4.2.2",
+    "typedoc": "^0.20.28",
+    "typedoc-plugin-markdown": "^3.6.0"
+  }
 }
