@@ -36,7 +36,7 @@
   },
   "scripts": {
     "prepare:clean": "rimraf lib coverage docs",
-    "check:lint": "eslint src/**/*.ts --fix",
+    "check:lint": "eslint src/**/*.ts",
     "check:spell": "cspell -c .vscode/cspell.json --no-summary \"README.md\" \"**/*.ts\" \"**/*.js\"",
     "check:test": "jest",
     "test": "npm-run-all check:*",
