@@ -1,4 +1,4 @@
-const { UpdateManager } = require('../lib/update-manager');
+const { UpdateManager } = require('../lib/UpdateManager');
 
 const manager = UpdateManager.getInstance();
 const frames = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'];
@@ -13,14 +13,14 @@ console.error(' - error message');
 console.warn(' - warn message');
 
 const id = setInterval(() => {
-    if (--ticks < 0) {
-        clearInterval(id);
-        manager.update(['✔ Success', '', 'Messages:'], 0);
-        manager.unhook(false);
-    } else {
-        const frame = frames[(i = ++i % frames.length)];
-        const message = messages[(j = Math.round(ticks / 10) % messages.length)];
+  if (--ticks < 0) {
+    clearInterval(id);
+    manager.update(['✔ Success', '', 'Messages:'], 0);
+    manager.unhook(false);
+  } else {
+    const frame = frames[(i = ++i % frames.length)];
+    const message = messages[(j = Math.round(ticks / 10) % messages.length)];
 
-        manager.update([`${frame} Some process...`, message]);
-    }
+    manager.update([`${frame} Some process...`, message]);
+  }
 }, 80);
