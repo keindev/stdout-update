@@ -6,6 +6,7 @@ coverage/
 media/
 src/
 docs/
+example/
 
 # configs
 .github
@@ -23,13 +24,13 @@ docs/
 .changelogrc.yml
 .ghinfo
 .dependabot
+.mergify.yml
 jest.config.js
 tsconfig.json
 yarn.lock
+typedoc.json
 
 # docs
-README.md
-CHANGELOG.md
 CODE_OF_CONDUCT.md
 
 # logs
