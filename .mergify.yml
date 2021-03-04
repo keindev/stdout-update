@@ -1,12 +1,14 @@
 pull_request_rules:
     - name: automatic merge on CI success and review
       conditions:
-          - status-success=Travis CI - Pull Request
+          - check-success=build
+          - check-success=lint
+          - check-success=test
           - '#review-requested=0'
           - '#changes-requested-reviews-by=0'
           - '#commented-reviews-by=0'
           - base=dev
-          - author=dependabot-preview[bot]
+          - author~=^dependabot(|-preview)\[bot\]$
       actions:
           label:
               add: [automatic]

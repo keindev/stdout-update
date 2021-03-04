@@ -8,7 +8,6 @@
   "excludeInternal": true,
   "disableSources": true,
   "readme": "none",
-  "theme": "minimal",
   "entryDocument": "index.md",
   "exclude": ["**/__tests__/**/*", "**/__mocks__/**/*"]
 }
