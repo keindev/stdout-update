@@ -20,5 +20,12 @@
     "yaml",
     "yml"
   ],
-  "cSpell.ignorePaths": ["**/.git/**", "**/.vscode/**", "**/docs/**", "**/node_modules/**"]
+  "cSpell.ignorePaths": [
+    "**/.git/**",
+    "**/.vscode/**",
+    "**/docs/**",
+    "**/node_modules/**",
+    "**/coverage/**",
+    "**/__snapshots__/**"
+  ]
 }
