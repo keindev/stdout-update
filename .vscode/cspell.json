@@ -21,6 +21,5 @@
     "yaml",
     "yml"
   ],
-  "ignorePaths": ["**/.git/**", "**/.vscode/**", "**/docs/**", "**/node_modules/**"],
   "words": ["tasktree", "quokka", "dependabot", "plusplus", "keindev", "codecov", "lcov"]
 }
