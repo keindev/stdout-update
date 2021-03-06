@@ -1,6 +1,8 @@
+/* eslint-disable no-underscore-dangle */
 import ansiEscapes from 'ansi-escapes';
 import tty from 'tty';
 
+// eslint-disable-next-line jest/no-mocks-import
 import { WriteStream } from '../__mocks__/WriteStream.mock';
 import { Hook } from '../Hook';
 

@@ -1,31 +1,22 @@
-/* eslint-disable class-methods-use-this */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 export class WriteStream {
-  public static ROWS = 12;
-  public static COLUMNS = 80;
+  static ROWS = 12;
+  static COLUMNS = 80;
 
-  public columns: number;
-  public rows: number;
+  columns: number;
+  rows: number;
 
-  public _stack: any[] = [];
+  _stack: any[] = [];
 
   constructor(columns: number = WriteStream.COLUMNS, rows: number = WriteStream.ROWS) {
     this.columns = columns;
     this.rows = rows;
   }
 
-  public write(str: string): boolean {
-    if (typeof str === 'string') {
-      this._stack.push(...str.split('\n'));
-    } else {
-      this._stack.push(str);
-    }
-
-    return true;
+  write(str: string): boolean {
+    return !!this._stack.push(...(typeof str === 'string' ? str.split('\n') : [str]));
   }
 
-  public clear(): void {
+  clear(): void {
     this._stack = [];
   }
 }

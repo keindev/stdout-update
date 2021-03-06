@@ -32,9 +32,7 @@ export class Hook {
         )
       );
 
-      if (typeof callback === 'function') {
-        callback();
-      }
+      if (typeof callback === 'function') callback();
 
       return Hook.DRAIN;
     };
@@ -42,9 +40,7 @@ export class Hook {
 
   inactive(separateHistory = false): void {
     if (this.#history.length) {
-      if (separateHistory) {
-        this.write(Terminal.EOL);
-      }
+      if (separateHistory) this.write(Terminal.EOL);
 
       this.#history.forEach(this.write, this);
       this.#history = [];
@@ -55,9 +51,7 @@ export class Hook {
   }
 
   erase(count: number): void {
-    if (count > 0) {
-      this.write(ansiEscapes.eraseLines(count + 1));
-    }
+    if (count > 0) this.write(ansiEscapes.eraseLines(count + 1));
   }
 
   write(msg: string): void {
