@@ -56,9 +56,9 @@ Removes from the bottom of output up the specified count of lines
 
 #### Parameters:
 
-Name | Type | Description |
-:------ | :------ | :------ |
-`count` | *number* | lines count to remove    |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `count` | *number* | lines count to remove |
 
 **Returns:** *void*
 
@@ -84,9 +84,9 @@ Unhooks both stdout and stderr streams and print their story of logs
 
 #### Parameters:
 
-Name | Type | Default value | Description |
-:------ | :------ | :------ | :------ |
-`separateHistory` | *boolean* | true | If `true`, will add an empty line to the history output for individual recorded lines and console logs   |
+| Name | Type | Default value | Description |
+| :------ | :------ | :------ | :------ |
+| `separateHistory` | *boolean* | true | If `true`, will add an empty line to the history output for individual recorded lines and console logs |
 
 **Returns:** *boolean*
 
@@ -102,10 +102,10 @@ Update output
 
 #### Parameters:
 
-Name | Type | Default value | Description |
-:------ | :------ | :------ | :------ |
-`rows` | *string*[] | - | Text lines to write to standard output   |
-`from` | *number* | 0 | Index of the line starting from which the contents of the terminal are being overwritten    |
+| Name | Type | Default value | Description |
+| :------ | :------ | :------ | :------ |
+| `rows` | *string*[] | - | Text lines to write to standard output |
+| `from` | *number* | 0 | Index of the line starting from which the contents of the terminal are being overwritten |
 
 **Returns:** *void*
 
@@ -119,9 +119,9 @@ Method to get the object to control the streams update
 
 #### Parameters:
 
-Name | Type | Description |
-:------ | :------ | :------ |
-`stdout` | *WriteStream* | [process.stdout](https://nodejs.org/api/process.html#process_process_stdout)   |
-`stderr` | *WriteStream* | [process.stderr](https://nodejs.org/api/process.html#process_a_note_on_process_i_o)    |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `stdout` | *WriteStream* | [process.stdout](https://nodejs.org/api/process.html#process_process_stdout) |
+| `stderr` | *WriteStream* | [process.stderr](https://nodejs.org/api/process.html#process_a_note_on_process_i_o) |
 
 **Returns:** [*UpdateManager*](updatemanager.md)
