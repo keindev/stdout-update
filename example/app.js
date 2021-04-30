@@ -3,7 +3,8 @@ const { UpdateManager } = require('../lib/UpdateManager');
 const manager = UpdateManager.getInstance();
 const frames = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'];
 const messages = ['Swapping time and space...', 'Have a good day.', "Don't panic...", 'Updating Updater...', '42'];
-let i = (j = 0);
+let i = 0;
+let j = 0;
 let ticks = 60;
 
 manager.hook();
