@@ -1,4 +1,3 @@
-/* eslint-disable no-underscore-dangle */
 import ansiEscapes from 'ansi-escapes';
 import tty from 'tty';
 
