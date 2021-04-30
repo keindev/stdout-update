@@ -1,7 +1,7 @@
 export class Terminal {
-  static COLUMNS = 80;
-  static ROWS = 24;
-  static EOL = '\n';
+  static readonly COLUMNS = 80;
+  static readonly ROWS = 24;
+  static readonly EOL = '\n';
 
   #stdout: NodeJS.WriteStream;
   #isWin32 = process.platform === 'win32';

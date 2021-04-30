@@ -26,9 +26,7 @@ export class UpdateManager {
     stdout: NodeJS.WriteStream = process.stdout,
     stderr: NodeJS.WriteStream = process.stderr
   ): UpdateManager {
-    if (!UpdateManager.instance) {
-      UpdateManager.instance = new UpdateManager(stdout, stderr);
-    }
+    if (!UpdateManager.instance) UpdateManager.instance = new UpdateManager(stdout, stderr);
 
     return UpdateManager.instance;
   }
@@ -60,7 +58,7 @@ export class UpdateManager {
    */
   hook(): boolean {
     if (!this.#isActive) {
-      this.#hooks.forEach((hook) => hook.active());
+      this.#hooks.forEach(hook => hook.active());
       this.clear(true);
     }
 
@@ -74,7 +72,7 @@ export class UpdateManager {
    */
   unhook(separateHistory = true): boolean {
     if (this.#isActive) {
-      this.#hooks.forEach((hook) => hook.inactive(separateHistory));
+      this.#hooks.forEach(hook => hook.inactive(separateHistory));
       this.clear();
     }
 
@@ -89,26 +87,27 @@ export class UpdateManager {
   update(rows: string[], from = 0): void {
     if (rows.length) {
       const [hook] = this.#hooks;
-      const height = this.#terminal.getHeight();
-      const width = this.#terminal.getWidth();
-      const position = from > height ? height - 1 : Math.max(0, Math.min(height - 1, from));
-      const actualLength = this.lastLength - position;
-      const outside = Math.max(actualLength - height, this.outside);
-      let output = rows.reduce<string[]>((acc, row) => acc.concat(this.#wrapper.wrap(row, width)), []);
 
-      if (height <= actualLength) {
-        hook.erase(height);
+      if (hook) {
+        const height = this.#terminal.getHeight();
+        const width = this.#terminal.getWidth();
+        const position = from > height ? height - 1 : Math.max(0, Math.min(height - 1, from));
+        const actualLength = this.lastLength - position;
+        const outside = Math.max(actualLength - height, this.outside);
+        let output = rows.reduce<string[]>((acc, row) => acc.concat(this.#wrapper.wrap(row, width)), []);
 
-        if (position < outside) {
-          output = output.slice(outside - position + 1);
+        if (height <= actualLength) {
+          hook.erase(height);
+
+          if (position < outside) output = output.slice(outside - position + 1);
+        } else if (actualLength) {
+          hook.erase(actualLength);
         }
-      } else if (actualLength) {
-        hook.erase(actualLength);
-      }
 
-      hook.write(output.join(Terminal.EOL) + Terminal.EOL);
-      this.#lastLength = outside ? outside + output.length + 1 : output.length;
-      this.#outside = Math.max(this.lastLength - height, this.outside);
+        hook.write(output.join(Terminal.EOL) + Terminal.EOL);
+        this.#lastLength = outside ? outside + output.length + 1 : output.length;
+        this.#outside = Math.max(this.lastLength - height, this.outside);
+      }
     }
   }
 
@@ -119,7 +118,7 @@ export class UpdateManager {
   erase(count = this.#lastLength): void {
     const [hook] = this.#hooks;
 
-    hook.erase(count);
+    if (hook) hook.erase(count);
   }
 
   private clear(status = false): void {
