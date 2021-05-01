@@ -127,3 +127,5 @@ export class UpdateManager {
     this.#outside = 0;
   }
 }
+
+export default UpdateManager;

@@ -1,3 +1,7 @@
+# BREAKING CHANGES
+
+- Move to ESM [`8c166e9`](https://github.com/keindev/stdout-update/commit/8c166e98ab008ece1c5fd8e4c3c78688f8930f50)
+
 # Important Changes
 
 ## Dependencies
@@ -5,16 +9,19 @@
 <details>
 <summary>Dependencies</summary>
 
-- Downgraded **[ansi-escapes](https://www.npmjs.com/package/ansi-escapes/v/4.3.2)** from `5.0.0` to `4.3.2`
-- Downgraded **[ansi-styles](https://www.npmjs.com/package/ansi-styles/v/5.2.0)** from `6.1.0` to `5.2.0`
-- Downgraded **[string-width](https://www.npmjs.com/package/string-width/v/4.2.2)** from `5.0.0` to `4.2.2`
-- Downgraded **[strip-ansi](https://www.npmjs.com/package/strip-ansi/v/6.0.0)** from `7.0.0` to `6.0.0`
+- Bumped **[ansi-escapes](https://www.npmjs.com/package/ansi-escapes/v/5.0.0)** from `4.3.2` to `5.0.0`
+- Bumped **[ansi-styles](https://www.npmjs.com/package/ansi-styles/v/6.1.0)** from `5.2.0` to `6.1.0`
+- Bumped **[string-width](https://www.npmjs.com/package/string-width/v/5.0.0)** from `4.2.2` to `5.0.0`
+- Bumped **[strip-ansi](https://www.npmjs.com/package/strip-ansi/v/7.0.0)** from `6.0.0` to `7.0.0`
 
 </details>
 
-# :bug: Bug Fixes
+<details>
+<summary>Dev Dependencies</summary>
 
-- Fix ES6 imports error [`a7d1ee5`](https://github.com/keindev/stdout-update/commit/a7d1ee54a925447825634c9ab65cf9a90333b4d0)
+- Bumped **[@tagproject/ts-package-shared-config](https://www.npmjs.com/package/@tagproject/ts-package-shared-config/v/2.0.1)** from `1.5.8` to `2.0.1`
+
+</details>
 
 ---
 
