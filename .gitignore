@@ -16,14 +16,15 @@
 /jest.modules.json
 /typedoc.json
 CHANGELOG.md
-babel.config.js
+babel.config.cjs
 coverage
-jest.config.js
+jest.config.cjs
 lib
 lib/
 logs
 node_modules/
 pids
+tsconfig.eslint.json
 tsconfig.json
 tsconfig.tsbuildinfo
 yarn-debug.log*
