@@ -4,7 +4,10 @@
   "description": "Updates the previous output in the terminal. Useful for correct rendering progress bars, animations, etc.",
   "homepage": "https://github.com/keindev/stdout-update#readme",
   "license": "MIT",
-  "author": "Daniil Ryazanov <kein@tagproject.ru>",
+  "author": {
+    "name": "Daniil Ryazanov",
+    "email": "kein@tagproject.ru"
+  },
   "keywords": [
     "log",
     "logger",
