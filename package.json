@@ -1,6 +1,6 @@
 {
   "name": "stdout-update",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Updates the previous output in the terminal. Useful for correct rendering progress bars, animations, etc.",
   "homepage": "https://github.com/keindev/stdout-update#readme",
   "license": "MIT",

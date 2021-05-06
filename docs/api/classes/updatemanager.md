@@ -54,7 +54,7 @@ Rows count outside editable area
 
 Removes from the bottom of output up the specified count of lines
 
-#### Parameters:
+#### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
@@ -82,7 +82,7 @@ ___
 
 Unhooks both stdout and stderr streams and print their story of logs
 
-#### Parameters:
+#### Parameters
 
 | Name | Type | Default value | Description |
 | :------ | :------ | :------ | :------ |
@@ -100,7 +100,7 @@ ___
 
 Update output
 
-#### Parameters:
+#### Parameters
 
 | Name | Type | Default value | Description |
 | :------ | :------ | :------ | :------ |
@@ -113,11 +113,11 @@ ___
 
 ### getInstance
 
-▸ `Static`**getInstance**(`stdout?`: *WriteStream*, `stderr?`: *WriteStream*): [*UpdateManager*](updatemanager.md)
+▸ `Static` **getInstance**(`stdout?`: *WriteStream*, `stderr?`: *WriteStream*): [*UpdateManager*](updatemanager.md)
 
 Method to get the object to control the streams update
 
-#### Parameters:
+#### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
