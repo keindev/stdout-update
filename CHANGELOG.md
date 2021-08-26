@@ -25,9 +25,9 @@
 - Bumped **[jest](https://www.npmjs.com/package/jest/v/27.0.6)** from `26.6.3` to `27.0.6`
 - Bumped **[prettier](https://www.npmjs.com/package/prettier/v/2.3.2)** from `2.2.1` to `2.3.2`
 - Bumped **[ts-jest](https://www.npmjs.com/package/ts-jest/v/27.0.5)** from `26.5.6` to `27.0.5`
-- Bumped **[typedoc](https://www.npmjs.com/package/typedoc/v/0.21.6)** from `0.20.36` to `0.21.6`
-- Bumped **[typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown/v/3.10.4)** from `3.8.0` to `3.10.4`
 - Bumped **[typescript](https://www.npmjs.com/package/typescript/v/4.3.5)** from `4.2.4` to `4.3.5`
+- Removed **[typedoc](https://www.npmjs.com/package/typedoc/v/0.20.36)**, with `^0.20.36`
+- Removed **[typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown/v/3.8.0)**, with `^3.8.0`
 
 </details>
 
@@ -39,6 +39,11 @@
 
 - Fix test error after bump jest to `v27.x` [`0cc0701`](https://github.com/keindev/stdout-update/commit/0cc070115c53e0444d1f25bf78fab21ff5f39c2a)
 - Add NodeJS.Global to fix ts error on node `v16.x` [`2481230`](https://github.com/keindev/stdout-update/commit/24812307bd71b437ad596d8078eb727e4f520cda)
+- Remove typedoc, add API description to README.md [`a23f361`](https://github.com/keindev/stdout-update/commit/a23f3614e8e5fdaa26dbe0b7260b0e973a8370dd)
+
+# :wrench: Code Refactoring
+
+- Refactor Wrapper and `UpdateManager` [`aed99bc`](https://github.com/keindev/stdout-update/commit/aed99bc04947777feba2fd3ce9ae3606c51ed809)
 
 ---
 
