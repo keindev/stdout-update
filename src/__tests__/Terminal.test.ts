@@ -4,7 +4,7 @@ import tty from 'tty';
 import { WriteStream } from '../__mocks__/WriteStream.mock';
 import { Terminal } from '../Terminal';
 
-const stdout = (new WriteStream() as unknown) as WriteStream & tty.WriteStream;
+const stdout = new WriteStream() as unknown as WriteStream & tty.WriteStream;
 const terminal = new Terminal(stdout);
 
 describe('Terminal', (): void => {

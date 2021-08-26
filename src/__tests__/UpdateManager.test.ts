@@ -6,8 +6,8 @@ import { WriteStream } from '../__mocks__/WriteStream.mock';
 import { Terminal } from '../Terminal';
 import { UpdateManager } from '../UpdateManager';
 
-const stdout = (new WriteStream() as unknown) as WriteStream & tty.WriteStream;
-const stderr = (new WriteStream() as unknown) as WriteStream & tty.WriteStream;
+const stdout = new WriteStream() as unknown as WriteStream & tty.WriteStream;
+const stderr = new WriteStream() as unknown as WriteStream & tty.WriteStream;
 const manager = UpdateManager.getInstance(stdout, stderr);
 
 describe('UpdateManager', (): void => {
@@ -39,7 +39,7 @@ describe('UpdateManager', (): void => {
   });
 
   it('Update terminal active area', (): void => {
-    const terminal: Terminal = new Terminal((stdout as unknown) as NodeJS.WriteStream);
+    const terminal: Terminal = new Terminal(stdout as unknown as NodeJS.WriteStream);
     const list: string[] = [];
     const position = 10;
     let i = 0;
