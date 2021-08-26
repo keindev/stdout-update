@@ -1,3 +1,5 @@
+// eslint-disable-next-line node/no-extraneous-import
+import { jest } from '@jest/globals';
 import ansiEscapes from 'ansi-escapes';
 import tty from 'tty';
 
@@ -5,7 +7,7 @@ import tty from 'tty';
 import { WriteStream } from '../__mocks__/WriteStream.mock';
 import { Hook } from '../Hook';
 
-const stream = (new WriteStream() as unknown) as WriteStream & tty.WriteStream;
+const stream = new WriteStream() as unknown as WriteStream & tty.WriteStream;
 const hook = new Hook(stream);
 const callback = jest.fn();
 

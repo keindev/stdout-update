@@ -6,8 +6,8 @@ import { WriteStream } from '../__mocks__/WriteStream.mock';
 import { Terminal } from '../Terminal';
 import { UpdateManager } from '../UpdateManager';
 
-const stdout = (new WriteStream() as unknown) as WriteStream & tty.WriteStream;
-const stderr = (new WriteStream() as unknown) as WriteStream & tty.WriteStream;
+const stdout = new WriteStream() as unknown as WriteStream & tty.WriteStream;
+const stderr = new WriteStream() as unknown as WriteStream & tty.WriteStream;
 const manager = UpdateManager.getInstance(stdout, stderr);
 
 describe('UpdateManager', (): void => {
@@ -39,12 +39,12 @@ describe('UpdateManager', (): void => {
   });
 
   it('Update terminal active area', (): void => {
-    const terminal: Terminal = new Terminal((stdout as unknown) as NodeJS.WriteStream);
+    const terminal: Terminal = new Terminal(stdout as unknown as NodeJS.WriteStream);
     const list: string[] = [];
     const position = 10;
     let i = 0;
 
-    while (i <= terminal.getHeight()) list.push(`line ${i++}`);
+    while (i <= terminal.height) list.push(`line ${i++}`);
 
     manager.update([...list, ...list]);
     stdout.clear();
@@ -57,7 +57,7 @@ describe('UpdateManager', (): void => {
 
     expect(stdout._stack.length).toBe(list.length - (manager.outside - position) + 1);
 
-    const code = ansiEscapes.eraseLines(terminal.getHeight() + 1);
+    const code = ansiEscapes.eraseLines(terminal.height + 1);
 
     expect(stdout._stack).toStrictEqual(
       process.platform === 'win32'

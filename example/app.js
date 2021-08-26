@@ -1,33 +1,22 @@
-import UpdateManager from "../lib/";
+import UpdateManager from '../lib/';
 
 const manager = UpdateManager.getInstance();
-const frames = ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"];
-const messages = [
-  "Swapping time and space...",
-  "Have a good day.",
-  "Don't panic...",
-  "Updating Updater...",
-  "42",
-];
+const frames = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'];
+const messages = ['Swapping time and space...', 'Have a good day.', "Don't panic...", 'Updating Updater...', '42'];
 let i = 0;
 let j = 0;
 let ticks = 60;
 
 manager.hook();
 
-console.log(" - log message");
-console.error(" - error message");
-console.warn(" - warn message");
+console.log(' - log message');
+console.error(' - error message');
+console.warn(' - warn message');
 
 const id = setInterval(() => {
   if (--ticks < 0) {
     clearInterval(id);
-    manager.update([
-      "✔ Success",
-      "",
-      "Messages:",
-      "this line is be deleted!!!",
-    ]);
+    manager.update(['✔ Success', '', 'Messages:', 'this line is be deleted!!!']);
     manager.erase(1);
     manager.unhook(false);
   } else {
