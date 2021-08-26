@@ -98,14 +98,6 @@ export class Wrapper {
     const characters = [...word];
     let isInsideEscape = false;
     let visible = stringWidth(stripAnsi(rows[rows.length - 1] ?? ''));
-    const lineBreak = (l: number, i: number): void => {
-      visible += l;
-
-      if (visible === limit && i < characters.length - 1) {
-        rows.push('');
-        visible = 0;
-      }
-    };
 
     characters.forEach((character, index): void => {
       const characterLength = stringWidth(character);
@@ -119,7 +111,14 @@ export class Wrapper {
 
       if (ESCAPES.has(character)) isInsideEscape = true;
       else if (isInsideEscape && character === 'm') isInsideEscape = false;
-      else if (!isInsideEscape) lineBreak(characterLength, index);
+      else if (!isInsideEscape) {
+        visible += characterLength;
+
+        if (visible === limit && index < characters.length - 1) {
+          rows.push('');
+          visible = 0;
+        }
+      }
     });
 
     if (!visible && (rows[rows.length - 1] ?? '').length > 0 && rows.length > 1) rows[rows.length - 2] += rows.pop();
