@@ -58,4 +58,23 @@ const id = setInterval(() => {
 
 ## API
 
-Read the [API documentation](docs/api/index.md) for more information.
+### UpdateManager
+
+#### Accessors
+
+- `get` **isHooked**(): `boolean` - Hook activity status
+- `get` **lastLength**(): `number` - Last printed rows count
+- `get` **outside**(): `number` - Rows count outside editable area
+
+#### Methods
+
+- `static` **getInstance**(`stdout?`: WriteStream, `stderr?`: WriteStream): `UpdateManager` - Method to get the object to control the streams update
+  - `stdout`: [process.stdout](https://nodejs.org/api/process.html#process_process_stdout)
+  - `stderr`: [process.stderr](https://nodejs.org/api/process.html#process_a_note_on_process_i_o)
+- **erase**(`count?`: number): `void` - Removes from the bottom of output up the specified count of lines
+- **hook**(): `boolean` - Hook stdout and stderr streams
+- **unhook**(`separateHistory?`: boolean): `boolean` - Unhooks both stdout and stderr streams and print their story of logs
+  - `separateHistory`: Default `true`, if `true`, will add an empty line to the history output for individual recorded lines and console logs.
+- **update**(`rows`: `string`[], `from?`: `number`): `void` - Update output
+  - `rows`: Text lines to write to standard output
+  - `from`: Default `0`, index of the line starting from which the contents of the terminal are being overwritten.

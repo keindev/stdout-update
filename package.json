@@ -41,7 +41,6 @@
     "build:ts": "rimraf lib && tsc --extendedDiagnostics",
     "generate": "npm-run-all generate:*",
     "generate:changelog": "node --experimental-specifier-resolution=node node_modules/.bin/changelog generate --bump",
-    "generate:docs": "rimraf docs/api && typedoc",
     "generate:ghinfo": "node --experimental-specifier-resolution=node node_modules/.bin/ghinfo generate -d media -t utils",
     "lint": "npm-run-all lint:*",
     "lint:eslint": "rimraf coverage && eslint \"src/**\" --ext .ts",
@@ -88,8 +87,6 @@
     "prettier": "^2.3.2",
     "rimraf": "^3.0.2",
     "ts-jest": "^27.0.5",
-    "typedoc": "^0.21.6",
-    "typedoc-plugin-markdown": "^3.10.4",
     "typescript": "^4.3.5"
   }
 }
