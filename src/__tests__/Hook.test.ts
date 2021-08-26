@@ -7,6 +7,15 @@ import tty from 'tty';
 import { WriteStream } from '../__mocks__/WriteStream.mock';
 import { Hook } from '../Hook';
 
+// FIXME: https://github.com/facebook/jest/issues/11640
+declare global {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
+  namespace NodeJS {
+    // eslint-disable-next-line @typescript-eslint/naming-convention, @typescript-eslint/no-empty-interface
+    interface Global {}
+  }
+}
+
 const stream = new WriteStream() as unknown as WriteStream & tty.WriteStream;
 const hook = new Hook(stream);
 const callback = jest.fn();
