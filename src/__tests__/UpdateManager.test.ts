@@ -44,7 +44,7 @@ describe('UpdateManager', (): void => {
     const position = 10;
     let i = 0;
 
-    while (i <= terminal.getHeight()) list.push(`line ${i++}`);
+    while (i <= terminal.height) list.push(`line ${i++}`);
 
     manager.update([...list, ...list]);
     stdout.clear();
@@ -57,7 +57,7 @@ describe('UpdateManager', (): void => {
 
     expect(stdout._stack.length).toBe(list.length - (manager.outside - position) + 1);
 
-    const code = ansiEscapes.eraseLines(terminal.getHeight() + 1);
+    const code = ansiEscapes.eraseLines(terminal.height + 1);
 
     expect(stdout._stack).toStrictEqual(
       process.platform === 'win32'

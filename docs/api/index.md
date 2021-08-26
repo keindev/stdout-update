@@ -8,10 +8,10 @@
 
 ### Classes
 
-- [UpdateManager](classes/updatemanager.md)
+- [UpdateManager](classes/UpdateManager.md)
 
 ## References
 
 ### default
 
-Renames and exports: [UpdateManager](classes/updatemanager.md)
+Renames and exports: [UpdateManager](classes/UpdateManager.md)

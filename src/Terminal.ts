@@ -6,19 +6,19 @@ export class Terminal {
   #stdout: NodeJS.WriteStream;
   #isWin32 = process.platform === 'win32';
 
-  public constructor(stdout: NodeJS.WriteStream) {
+  constructor(stdout: NodeJS.WriteStream) {
     this.#stdout = stdout;
   }
 
-  public getWidth(): number {
+  get width(): number {
     return this.#stdout.columns ? this.adapt(this.#stdout.columns) : Terminal.COLUMNS;
   }
 
-  public getHeight(): number {
+  get height(): number {
     return this.#stdout.rows ? this.adapt(this.#stdout.rows) : Terminal.ROWS;
   }
 
-  private adapt(value: number): number {
+  adapt(value: number): number {
     return this.#isWin32 ? value - 1 : value;
   }
 }

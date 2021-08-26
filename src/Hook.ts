@@ -4,7 +4,7 @@ import { StringDecoder } from 'string_decoder';
 import { Terminal } from './Terminal';
 
 export class Hook {
-  static DRAIN = true;
+  static readonly DRAIN = true;
 
   #stream: NodeJS.WriteStream;
   #decoder = new StringDecoder();

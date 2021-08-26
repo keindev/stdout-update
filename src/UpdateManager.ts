@@ -89,8 +89,7 @@ export class UpdateManager {
       const [hook] = this.#hooks;
 
       if (hook) {
-        const height = this.#terminal.getHeight();
-        const width = this.#terminal.getWidth();
+        const { width, height } = this.#terminal;
         const position = from > height ? height - 1 : Math.max(0, Math.min(height - 1, from));
         const actualLength = this.lastLength - position;
         const outside = Math.max(actualLength - height, this.outside);
