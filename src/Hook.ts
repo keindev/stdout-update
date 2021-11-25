@@ -6,10 +6,10 @@ import { Terminal } from './Terminal';
 export class Hook {
   static readonly DRAIN = true;
 
-  #stream: NodeJS.WriteStream;
   #decoder = new StringDecoder();
-  #method: NodeJS.WriteStream['write'];
   #history: string[] = [];
+  #method: NodeJS.WriteStream['write'];
+  #stream: NodeJS.WriteStream;
 
   constructor(stream: NodeJS.WriteStream) {
     this.#method = stream.write;
@@ -38,6 +38,10 @@ export class Hook {
     };
   }
 
+  erase(count: number): void {
+    if (count > 0) this.write(ansiEscapes.eraseLines(count + 1));
+  }
+
   inactive(separateHistory = false): void {
     if (this.#history.length) {
       if (separateHistory) this.write(Terminal.EOL);
@@ -48,10 +52,6 @@ export class Hook {
 
     this.#stream.write = this.#method;
     this.write(ansiEscapes.cursorShow);
-  }
-
-  erase(count: number): void {
-    if (count > 0) this.write(ansiEscapes.eraseLines(count + 1));
   }
 
   write(msg: string): void {

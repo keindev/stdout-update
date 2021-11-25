@@ -1,10 +1,10 @@
 export class Terminal {
   static readonly COLUMNS = 80;
-  static readonly ROWS = 24;
   static readonly EOL = '\n';
+  static readonly ROWS = 24;
 
-  #stdout: NodeJS.WriteStream;
   #isWin32 = process.platform === 'win32';
+  #stdout: NodeJS.WriteStream;
 
   constructor(stdout: NodeJS.WriteStream) {
     this.#stdout = stdout;
