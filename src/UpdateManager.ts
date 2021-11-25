@@ -5,11 +5,11 @@ import { Wrapper } from './Wrapper';
 export class UpdateManager {
   private static instance?: UpdateManager;
   #hooks: Hook[];
-  #wrapper: Wrapper;
-  #terminal: Terminal;
+  #isActive = false;
   #lastLength = 0;
   #outside = 0;
-  #isActive = false;
+  #terminal: Terminal;
+  #wrapper: Wrapper;
 
   private constructor(stdout: NodeJS.WriteStream, stderr: NodeJS.WriteStream) {
     this.#hooks = [stdout, stderr].map((stream): Hook => new Hook(stream));
@@ -50,6 +50,16 @@ export class UpdateManager {
    */
   get isHooked(): boolean {
     return this.#isActive;
+  }
+
+  /**
+   * Removes from the bottom of output up the specified count of lines
+   * @param count - lines count to remove
+   */
+  erase(count = this.#lastLength): void {
+    const [hook] = this.#hooks;
+
+    if (hook) hook.erase(count);
   }
 
   /**
@@ -108,16 +118,6 @@ export class UpdateManager {
         this.#outside = Math.max(this.lastLength - height, this.outside);
       }
     }
-  }
-
-  /**
-   * Removes from the bottom of output up the specified count of lines
-   * @param count - lines count to remove
-   */
-  erase(count = this.#lastLength): void {
-    const [hook] = this.#hooks;
-
-    if (hook) hook.erase(count);
   }
 
   private clear(status = false): void {
