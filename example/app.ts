@@ -1,16 +1,20 @@
-import UpdateManager from '../lib/';
+import UpdateManager from '../lib/UpdateManager';
 
+const TICKS = 60;
+const TIMEOUT = 80;
 const manager = UpdateManager.getInstance();
 const frames = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'];
 const messages = ['Swapping time and space...', 'Have a good day.', "Don't panic...", 'Updating Updater...', '42'];
+let ticks = TICKS;
 let i = 0;
-let j = 0;
-let ticks = 60;
 
 manager.hook();
 
+// eslint-disable-next-line no-console
 console.log(' - log message');
+// eslint-disable-next-line no-console
 console.error(' - error message');
+// eslint-disable-next-line no-console
 console.warn(' - warn message');
 
 const id = setInterval(() => {
@@ -21,8 +25,9 @@ const id = setInterval(() => {
     manager.unhook(false);
   } else {
     const frame = frames[(i = ++i % frames.length)];
-    const message = messages[(j = Math.round(ticks / 10) % messages.length)];
+    const index = Math.round(ticks / 10) % messages.length;
+    const message = messages[index];
 
-    manager.update([`${frame} Some process...`, message]);
+    if (message) manager.update([`${frame} Some process...`, message]);
   }
-}, 80);
+}, TIMEOUT);
