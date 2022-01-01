@@ -1,4 +1,4 @@
-<p align="center"><img width="100%" src="https://cdn.jsdelivr.net/gh/keindev/stdout-update/media/logo.svg" alt="stdout-update logo"></p>
+<p align="center"><img src="https://cdn.jsdelivr.net/gh/keindev/stdout-update/media/banner.svg" alt="Package logo"></p>
 
 <p align="center">
     <a href="https://travis-ci.com/keindev/stdout-update"><img src="https://travis-ci.com/keindev/stdout-update.svg?branch=master" alt="Build Status"></a>
@@ -22,19 +22,23 @@ npm install stdout-update
 ## Usage
 
 ```javascript
-import { UpdateManager } from '../lib/UpdateManager';
+import UpdateManager from 'stdout-update';
 
+const TICKS = 60;
+const TIMEOUT = 80;
 const manager = UpdateManager.getInstance();
 const frames = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'];
 const messages = ['Swapping time and space...', 'Have a good day.', "Don't panic...", 'Updating Updater...', '42'];
+let ticks = TICKS;
 let i = 0;
-let j = 0;
-let ticks = 60;
 
 manager.hook();
 
+// eslint-disable-next-line no-console
 console.log(' - log message');
+// eslint-disable-next-line no-console
 console.error(' - error message');
+// eslint-disable-next-line no-console
 console.warn(' - warn message');
 
 const id = setInterval(() => {
@@ -45,11 +49,12 @@ const id = setInterval(() => {
     manager.unhook(false);
   } else {
     const frame = frames[(i = ++i % frames.length)];
-    const message = messages[(j = Math.round(ticks / 10) % messages.length)];
+    const index = Math.round(ticks / 10) % messages.length;
+    const message = messages[index];
 
-    manager.update([`${frame} Some process...`, message]);
+    if (message) manager.update([`${frame} Some process...`, message]);
   }
-}, 80);
+}, TIMEOUT);
 ```
 
 ## Examples
@@ -58,23 +63,4 @@ const id = setInterval(() => {
 
 ## API
 
-### UpdateManager
-
-#### Accessors
-
-- `get` **isHooked**(): `boolean` - Hook activity status
-- `get` **lastLength**(): `number` - Last printed rows count
-- `get` **outside**(): `number` - Rows count outside editable area
-
-#### Methods
-
-- `static` **getInstance**(`stdout?`: WriteStream, `stderr?`: WriteStream): `UpdateManager` - Method to get the object to control the streams update
-  - `stdout`: [process.stdout](https://nodejs.org/api/process.html#process_process_stdout)
-  - `stderr`: [process.stderr](https://nodejs.org/api/process.html#process_a_note_on_process_i_o)
-- **erase**(`count?`: number): `void` - Removes from the bottom of output up the specified count of lines
-- **hook**(): `boolean` - Hook stdout and stderr streams
-- **unhook**(`separateHistory?`: boolean): `boolean` - Unhooks both stdout and stderr streams and print their story of logs
-  - `separateHistory`: Default `true`, if `true`, will add an empty line to the history output for individual recorded lines and console logs.
-- **update**(`rows`: `string`[], `from?`: `number`): `void` - Update output
-  - `rows`: Text lines to write to standard output
-  - `from`: Default `0`, index of the line starting from which the contents of the terminal are being overwritten.
+Read the [API documentation](docs/api/index.md) for more information.
