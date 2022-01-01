@@ -1,35 +1,34 @@
 {
   "name": "stdout-update",
-  "version": "2.0.4",
+  "version": "3.0.0",
   "description": "Updates the previous output in the terminal. Useful for correct rendering progress bars, animations, etc.",
   "keywords": [
+    "cli",
+    "console",
+    "indicator",
     "log",
     "logger",
     "logging",
-    "shell",
-    "update",
-    "refresh",
-    "overwrite",
     "output",
-    "cli",
+    "overwrite",
+    "progress",
+    "refresh",
+    "shell",
     "stdout",
-    "update",
-    "terminal",
     "term",
-    "console",
-    "indicator",
-    "progress"
+    "terminal",
+    "update"
   ],
   "repo": "keindev/stdout-update",
   "type": "utils",
   "links": {
+    "homepage": "https://github.com/keindev/stdout-update#readme",
     "git": "https://github.com/keindev/stdout-update",
-    "npm": "https://www.npmjs.com/package/stdout-update",
-    "homepage": "https://github.com/keindev/stdout-update#readme"
+    "npm": "https://www.npmjs.com/package/stdout-update"
   },
   "files": {
+    "banner": "media/banner.svg",
     "demo": "media/demo.gif",
-    "logo": "media/logo.svg",
-    "social-preview": "media/social-preview.png"
+    "logo": "media/logo.svg"
   }
 }
