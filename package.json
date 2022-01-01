@@ -1,6 +1,6 @@
 {
   "name": "stdout-update",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "Updates the previous output in the terminal. Useful for correct rendering progress bars, animations, etc.",
   "license": "MIT",
   "homepage": "https://github.com/keindev/stdout-update#readme",
@@ -33,7 +33,7 @@
     "url": "https://github.com/keindev/stdout-update.git"
   },
   "engines": {
-    "node": ">=14.0.0"
+    "node": "^14.13.1 || >=16.0.0"
   },
   "scripts": {
     "build": "npm-run-all build:*",
