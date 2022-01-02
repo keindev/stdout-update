@@ -1,4 +1,4 @@
-import UpdateManager from '../lib/UpdateManager';
+import UpdateManager from '../src/UpdateManager';
 
 const TICKS = 60;
 const TIMEOUT = 80;
