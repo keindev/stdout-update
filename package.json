@@ -27,7 +27,13 @@
   ],
   "types": "./lib/index.d.ts",
   "type": "module",
-  "exports": "./lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./lib/types": "./lib/types.js",
+    "./lib/Hook": "./lib/Hook.js",
+    "./lib/Terminal": "./lib/Terminal.js",
+    "./lib/Wrapper": "./lib/Wrapper.js"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/keindev/stdout-update.git"
