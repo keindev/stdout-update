@@ -21,7 +21,7 @@ npm install stdout-update
 
 ## Usage
 
-```javascript
+```typescript
 import UpdateManager from 'stdout-update';
 
 const TICKS = 60;
