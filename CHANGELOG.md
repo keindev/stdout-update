@@ -3,23 +3,29 @@
 ## Dependencies
 
 <details>
-<summary>Dev Dependencies</summary>
+<summary>Dependencies</summary>
 
-- Bumped **[@types/node](https://www.npmjs.com/package/@types/node/v/17.0.7)** from `17.0.6` to `17.0.7`
-- Bumped **[@typescript-eslint/eslint-plugin](https://www.npmjs.com/package/@typescript-eslint/eslint-plugin/v/5.9.0)** from `5.8.1` to `5.9.0`
-- Bumped **[@typescript-eslint/parser](https://www.npmjs.com/package/@typescript-eslint/parser/v/5.9.0)** from `5.8.1` to `5.9.0`
-- Bumped **[eslint-plugin-import](https://www.npmjs.com/package/eslint-plugin-import/v/2.25.4)** from `2.25.3` to `2.25.4`
+- Changed **[string-width](https://www.npmjs.com/package/string-width)** from `^5.0.1` to `^5.1.0`
 
 </details>
 
-# :bug: Bug Fixes
+<details>
+<summary>Dev Dependencies</summary>
 
-- Add `eslint-ignore` flag [`acc1562`](https://github.com/keindev/stdout-update/commit/acc1562cf83f4cd9e23150e4e372d1c7cb23a35b)
+- Changed **[@tagproject/ts-package-shared-config](https://www.npmjs.com/package/@tagproject/ts-package-shared-config)** from `^6.4.0` to `^6.4.1`
+- Changed **[@types/node](https://www.npmjs.com/package/@types/node)** from `^17.0.7` to `^17.0.8`
+- Changed **[@typescript-eslint/eslint-plugin](https://www.npmjs.com/package/@typescript-eslint/eslint-plugin)** from `^5.9.0` to `^5.9.1`
+- Changed **[@typescript-eslint/parser](https://www.npmjs.com/package/@typescript-eslint/parser)** from `^5.9.0` to `^5.9.1`
+- Changed **[cspell](https://www.npmjs.com/package/cspell)** from `^5.14.0` to `^5.15.2`
+- Changed **[eslint](https://www.npmjs.com/package/eslint)** from `^8.6.0` to `^8.7.0`
+- Changed **[eslint-plugin-jest](https://www.npmjs.com/package/eslint-plugin-jest)** from `^25.3.4` to `^25.7.0`
+- Changed **[figma-portal](https://www.npmjs.com/package/figma-portal)** from `^0.10.0` to `^0.10.2`
+- Changed **[ghinfo](https://www.npmjs.com/package/ghinfo)** from `^3.0.0` to `^3.0.2`
+- Changed **[jest](https://www.npmjs.com/package/jest)** from `^27.4.5` to `^27.4.7`
+- Changed **[ts-jest](https://www.npmjs.com/package/ts-jest)** from `^27.1.2` to `^27.1.3`
+- Bumped **[changelog-guru](https://www.npmjs.com/package/changelog-guru)** from `^3.0.2` to `^4.0.1`
 
-# :memo: Internal changes
-
-- Fix import path [`3b0ffae`](https://github.com/keindev/stdout-update/commit/3b0ffae430a0e942e78cca2365459fa56187c027)
-- Fix code block, replace js to TS [`6ac2dac`](https://github.com/keindev/stdout-update/commit/6ac2dacdd563fe8395e585ea2ece8cd58a7d6dc5)
+</details>
 
 ---
 
