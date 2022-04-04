@@ -1,6 +1,6 @@
 {
   "name": "stdout-update",
-  "version": "3.0.4",
+  "version": "3.0.5",
   "description": "Updates the previous output in the terminal. Useful for correct rendering progress bars, animations, etc.",
   "keywords": [
     "cli",
