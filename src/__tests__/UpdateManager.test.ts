@@ -1,10 +1,10 @@
 import ansiEscapes from 'ansi-escapes';
 import tty from 'tty';
 
+import { Terminal } from '../Terminal.js';
+import { UpdateManager } from '../UpdateManager.js';
 // eslint-disable-next-line jest/no-mocks-import
-import { WriteStream } from '../__mocks__/WriteStream.mock';
-import { Terminal } from '../Terminal';
-import { UpdateManager } from '../UpdateManager';
+import { WriteStream } from './__mocks__/WriteStream.mock.js';
 
 const stdout = new WriteStream() as unknown as WriteStream & tty.WriteStream;
 const stderr = new WriteStream() as unknown as WriteStream & tty.WriteStream;

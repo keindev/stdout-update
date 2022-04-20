@@ -1,1 +1,1 @@
-export { default } from './UpdateManager';
+export { default } from './UpdateManager.js';

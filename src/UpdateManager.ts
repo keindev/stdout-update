@@ -1,6 +1,6 @@
-import { Hook } from './Hook';
-import { Terminal } from './Terminal';
-import { Wrapper } from './Wrapper';
+import { Hook } from './Hook.js';
+import { Terminal } from './Terminal.js';
+import { Wrapper } from './Wrapper.js';
 
 export class UpdateManager {
   private static instance?: UpdateManager;

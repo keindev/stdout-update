@@ -1,7 +1,7 @@
 import ansiEscapes from 'ansi-escapes';
 import { StringDecoder } from 'string_decoder';
 
-import { Terminal } from './Terminal';
+import { Terminal } from './Terminal.js';
 
 export class Hook {
   static readonly DRAIN = true;
