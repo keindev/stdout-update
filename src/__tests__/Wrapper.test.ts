@@ -1,7 +1,7 @@
 import stripAnsi from 'strip-ansi';
 
-import { Terminal } from '../Terminal';
-import { Wrapper } from '../Wrapper';
+import { Terminal } from '../Terminal.js';
+import { Wrapper } from '../Wrapper.js';
 
 let wrapper: Wrapper;
 const red = (s: string): string => `\u001B[31m${s}\u001b[39m`;

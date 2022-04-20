@@ -1,8 +1,8 @@
 import tty from 'tty';
 
+import { Terminal } from '../Terminal.js';
 // eslint-disable-next-line jest/no-mocks-import
-import { WriteStream } from '../__mocks__/WriteStream.mock';
-import { Terminal } from '../Terminal';
+import { WriteStream } from './__mocks__/WriteStream.mock.js';
 
 const stdout = new WriteStream() as unknown as WriteStream & tty.WriteStream;
 const terminal = new Terminal(stdout);

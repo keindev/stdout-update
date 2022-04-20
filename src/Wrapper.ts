@@ -2,7 +2,7 @@ import ansiStyles from 'ansi-styles';
 import stringWidth from 'string-width';
 import stripAnsi from 'strip-ansi';
 
-import { Terminal } from './Terminal';
+import { Terminal } from './Terminal.js';
 
 const ESCAPES = new Set(['\u001B', '\u009B']);
 const DEFAULT_COLOR_CODE = 39;

@@ -4,6 +4,7 @@
 *.seed
 *.tgz
 .env
+.eslintrc
 .yarn-integrity
 /.editorconfig
 /.eslintcache
@@ -15,6 +16,7 @@
 /.prettierrc
 /.vscode/
 /jest.config.js
+/src/**/tsconfig.json
 /tsconfig.json
 coverage
 lib
