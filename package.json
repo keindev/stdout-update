@@ -69,7 +69,7 @@
   },
   "devDependencies": {
     "@tagproject/docs-shared-config": "^1.0.4",
-    "@tagproject/ts-package-shared-config": "^9.0.6",
+    "@tagproject/ts-package-shared-config": "^9.0.7",
     "@tagproject/vscode-shared-config": "^2.0.0",
     "@types/ansi-styles": "^4.2.0",
     "@types/jest": "^27.4.1",
