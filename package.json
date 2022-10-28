@@ -62,7 +62,7 @@
     "test:jest": "node --experimental-vm-modules node_modules/.bin/jest"
   },
   "dependencies": {
-    "ansi-escapes": "^5.0.0",
+    "ansi-escapes": "^6.0.0",
     "ansi-styles": "^6.1.0",
     "string-width": "^5.1.2",
     "strip-ansi": "^7.0.1"
