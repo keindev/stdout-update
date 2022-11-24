@@ -6,6 +6,7 @@ export class UpdateManager {
   private static instance?: UpdateManager;
   #hooks: Hook[];
   #isActive = false;
+  #isSuspended = false;
   #lastLength = 0;
   #outside = 0;
   #terminal: Terminal;
@@ -53,6 +54,13 @@ export class UpdateManager {
   }
 
   /**
+   * Suspend status for active hooks
+   */
+  get isSuspended(): boolean {
+    return this.#isSuspended;
+  }
+
+  /**
    * Removes from the bottom of output up the specified count of lines
    * @param count - lines count to remove
    */
@@ -73,6 +81,34 @@ export class UpdateManager {
     }
 
     return this.#isActive;
+  }
+
+  /**
+   * Resume suspend hooks
+   * @param erase - erase output
+   */
+  resume(erase = true): void {
+    if (this.#isSuspended) {
+      this.#isSuspended = false;
+
+      if (erase) this.erase();
+
+      this.#hooks.forEach(hook => hook.active());
+    }
+  }
+
+  /**
+   * Suspend active hooks for external output
+   * @param erase - erase output
+   */
+  suspend(erase = true): void {
+    if (!this.#isSuspended) {
+      this.#isSuspended = true;
+
+      if (erase) this.erase();
+
+      this.#hooks.forEach(hook => hook.renew());
+    }
   }
 
   /**

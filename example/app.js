@@ -1,5 +1,5 @@
 /* eslint-disable */
-import UpdateManager from '../src';
+import UpdateManager from '../src/index.js';
 
 const TICKS = 60;
 const TIMEOUT = 80;
