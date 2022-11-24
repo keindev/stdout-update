@@ -2,9 +2,10 @@
 
 ## Accessors
 
-- `get` **isHooked**(): `boolean` - Hook activity status
 - `get` **lastLength**(): `number` - Last printed rows count
 - `get` **outside**(): `number` - Rows count outside editable area
+- `get` **isHooked**(): `boolean` - Hook activity status
+- `get` **isSuspended**(): `boolean` - Suspend status for active hooks
 
 ## Methods
 
@@ -39,6 +40,26 @@ Removes from the bottom of output up the specified count of lines
 ### hook
 
 Hook stdout and stderr streams
+
+### resume
+
+Resume suspend hooks
+
+#### Parameters
+
+| Name    | Type      | Description  |
+| :------ | :-------- | :----------- |
+| `erase` | _boolean_ | erase output |
+
+### suspend
+
+Suspend active hooks for external output
+
+#### Parameters
+
+| Name    | Type      | Description  |
+| :------ | :-------- | :----------- |
+| `erase` | _boolean_ | erase output |
 
 ### unhook
 
