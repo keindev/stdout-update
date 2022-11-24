@@ -50,6 +50,10 @@ export class Hook {
       this.#history = [];
     }
 
+    this.renew();
+  }
+
+  renew(): void {
     this.#stream.write = this.#method;
     this.write(ansiEscapes.cursorShow);
   }
