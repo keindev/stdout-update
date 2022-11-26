@@ -85,14 +85,15 @@ export class UpdateManager {
 
   /**
    * Resume suspend hooks
-   * @param erase - erase output
+   * @param eraseRowCount - erase output rows count
    */
-  resume(erase = true): void {
+  resume(eraseRowCount?: number): void {
     if (this.#isSuspended) {
       this.#isSuspended = false;
 
-      if (erase) this.erase();
+      if (eraseRowCount) this.erase(eraseRowCount);
 
+      this.#lastLength = 0;
       this.#hooks.forEach(hook => hook.active());
     }
   }
