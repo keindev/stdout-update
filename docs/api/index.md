@@ -47,9 +47,9 @@ Resume suspend hooks
 
 #### Parameters
 
-| Name    | Type      | Description  |
-| :------ | :-------- | :----------- |
-| `erase` | _boolean_ | erase output |
+| Name            | Type                  | Description             |
+| :-------------- | :-------------------- | :---------------------- |
+| `eraseRowCount` | _number \| undefined_ | erase output rows count |
 
 ### suspend
 
