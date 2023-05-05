@@ -72,7 +72,7 @@
     "@tagproject/vscode-shared-config": "^2.0.5",
     "@types/ansi-styles": "^4.2.0",
     "@types/jest": "^29.2.3",
-    "@types/node": "^18.11.9",
+    "@types/node": "^20.1.0",
     "@typescript-eslint/eslint-plugin": "^5.44.0",
     "@typescript-eslint/parser": "^5.44.0",
     "changelog-guru": "^4.0.9",
