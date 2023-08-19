@@ -1,7 +1,8 @@
-// eslint-disable-next-line node/no-extraneous-import
-import { jest } from '@jest/globals';
 import ansiEscapes from 'ansi-escapes';
 import tty from 'tty';
+
+// eslint-disable-next-line node/no-extraneous-import
+import { jest } from '@jest/globals';
 
 import { Hook } from '../Hook.js';
 // eslint-disable-next-line jest/no-mocks-import
