@@ -1,10 +1,13 @@
 {
   "name": "stdout-update",
-  "version": "3.1.1",
+  "version": "4.0.0",
   "description": "Updates the previous output in the terminal. Useful for correct rendering progress bars, animations, etc.",
   "license": "MIT",
   "homepage": "https://github.com/keindev/stdout-update#readme",
-  "author": "Daniil Ryazanov <kein@tagproject.ru>",
+  "author": {
+    "name": "Daniil Ryazanov",
+    "email": "kein@tagproject.ru"
+  },
   "keywords": [
     "cli",
     "console",
