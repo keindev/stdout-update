@@ -6,10 +6,10 @@ import { Terminal } from './Terminal.js';
 export class Hook {
   static readonly DRAIN = true;
 
-  #decoder = new StringDecoder();
+  readonly #decoder = new StringDecoder();
   #history: string[] = [];
-  #method: NodeJS.WriteStream['write'];
-  #stream: NodeJS.WriteStream;
+  readonly #method: NodeJS.WriteStream['write'];
+  readonly #stream: NodeJS.WriteStream;
 
   constructor(stream: NodeJS.WriteStream) {
     this.#method = stream.write;
