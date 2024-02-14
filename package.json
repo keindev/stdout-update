@@ -4,10 +4,7 @@
   "description": "Updates the previous output in the terminal. Useful for correct rendering progress bars, animations, etc.",
   "license": "MIT",
   "homepage": "https://github.com/keindev/stdout-update#readme",
-  "author": {
-    "name": "Daniil Ryazanov",
-    "email": "kein@tagproject.ru"
-  },
+  "author": "Daniil Ryazanov <kein@tagproject.ru>",
   "keywords": [
     "cli",
     "console",
@@ -67,8 +64,8 @@
     "strip-ansi": "^7.1.0"
   },
   "devDependencies": {
-    "@tagproject/ts-package-shared-config": "^11.0.1",
+    "@tagproject/ts-package-shared-config": "^11.0.4",
     "@types/ansi-styles": "^4.2.0",
-    "ts-node": "^10.9.1"
+    "ts-node": "^10.9.2"
   }
 }
