@@ -3,8 +3,8 @@ export class Terminal {
   static readonly EOL = '\n';
   static readonly ROWS = 24;
 
-  #isWin32 = process.platform === 'win32';
-  #stdout: NodeJS.WriteStream;
+  readonly #isWin32 = process.platform === 'win32';
+  readonly #stdout: NodeJS.WriteStream;
 
   constructor(stdout: NodeJS.WriteStream) {
     this.#stdout = stdout;

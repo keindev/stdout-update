@@ -4,13 +4,13 @@ import { Wrapper } from './Wrapper.js';
 
 export class UpdateManager {
   private static instance?: UpdateManager;
-  #hooks: Hook[];
+  readonly #hooks: Hook[];
   #isActive = false;
   #isSuspended = false;
   #lastLength = 0;
   #outside = 0;
-  #terminal: Terminal;
-  #wrapper: Wrapper;
+  readonly #terminal: Terminal;
+  readonly #wrapper: Wrapper;
 
   private constructor(stdout: NodeJS.WriteStream, stderr: NodeJS.WriteStream) {
     this.#hooks = [stdout, stderr].map((stream): Hook => new Hook(stream));
