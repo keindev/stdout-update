@@ -28,7 +28,12 @@ describe('UpdateManager', (): void => {
     manager.update(['line 1']);
     manager.update(['line 2'], 1);
 
-    expect(stdout._stack).toStrictEqual(['line 1', '', 'line 2', '']);
+    expect(stdout._stack).toStrictEqual([
+      'line 1' + ansiEscapes.eraseEndLine,
+      '',
+      'line 2' + ansiEscapes.eraseEndLine,
+      ''
+    ]);
   });
 
   it('Update lines with empty array', (): void => {
@@ -55,14 +60,35 @@ describe('UpdateManager', (): void => {
 
     manager.update(list, position);
 
-    expect(stdout._stack.length).toBe(list.length - (manager.outside - position) + 1);
+    expect(stdout._stack.length).toBe(list.length - (manager.outside - position));
 
-    const code = ansiEscapes.eraseLines(terminal.height + 1);
+    const previousLinesToOverwrite = Math.min(terminal.height, list.length * 2 - position);
+    const code = ansiEscapes.eraseStartLine + ansiEscapes.cursorLeft + ansiEscapes.cursorUp(previousLinesToOverwrite);
 
     expect(stdout._stack).toStrictEqual(
       process.platform === 'win32'
-        ? [code, 'line 4', 'line 5', 'line 6', 'line 7', 'line 8', 'line 9', 'line 10', 'line 11', '']
-        : [code, 'line 5', 'line 6', 'line 7', 'line 8', 'line 9', 'line 10', 'line 11', 'line 12', '']
+        ? [
+          code + 'line 4' + ansiEscapes.eraseEndLine,
+          'line 5' + ansiEscapes.eraseEndLine,
+          'line 6' + ansiEscapes.eraseEndLine,
+          'line 7' + ansiEscapes.eraseEndLine,
+          'line 8' + ansiEscapes.eraseEndLine,
+          'line 9' + ansiEscapes.eraseEndLine,
+          'line 10' + ansiEscapes.eraseEndLine,
+          'line 11' + ansiEscapes.eraseEndLine,
+          ''
+        ]
+        : [
+          code + 'line 5' + ansiEscapes.eraseEndLine,
+          'line 6' + ansiEscapes.eraseEndLine,
+          'line 7' + ansiEscapes.eraseEndLine,
+          'line 8' + ansiEscapes.eraseEndLine,
+          'line 9' + ansiEscapes.eraseEndLine,
+          'line 10' + ansiEscapes.eraseEndLine,
+          'line 11' + ansiEscapes.eraseEndLine,
+          'line 12' + ansiEscapes.eraseEndLine,
+          ''
+        ]
     );
   });
 

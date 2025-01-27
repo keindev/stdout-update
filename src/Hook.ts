@@ -53,6 +53,22 @@ export class Hook {
     this.renew();
   }
 
+  overwrite(lines: string[], linesToOverwrite: number): void {
+    if (lines.length === 0) {
+      return;
+    }
+
+    this.write(
+      (
+        linesToOverwrite > 0
+          ? (ansiEscapes.eraseStartLine + ansiEscapes.cursorLeft + ansiEscapes.cursorUp(linesToOverwrite))
+          : ''
+      ) +
+      lines.join(ansiEscapes.eraseEndLine + Terminal.EOL) +
+      ansiEscapes.eraseEndLine + Terminal.EOL
+    );
+  }
+
   renew(): void {
     this.#stream.write = this.#method;
     this.write(ansiEscapes.cursorShow);

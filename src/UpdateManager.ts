@@ -140,17 +140,24 @@ export class UpdateManager {
         const position = from > height ? height - 1 : Math.max(0, Math.min(height - 1, from));
         const actualLength = this.lastLength - position;
         const outside = Math.max(actualLength - height, this.outside);
-        let output = rows.reduce<string[]>((acc, row) => acc.concat(this.#wrapper.wrap(row, width)), []);
+        let output = rows.flatMap(row => this.#wrapper.wrap(row, width));
+        let previousLinesToOverwrite = 0;
 
         if (height <= actualLength) {
-          hook.erase(height);
+          const eraseLines = Math.max(0, height - output.length);
+
+          hook.erase(eraseLines);
+          previousLinesToOverwrite = Math.max(0, height - eraseLines);
 
           if (position < outside) output = output.slice(outside - position + 1);
         } else if (actualLength) {
-          hook.erase(actualLength);
+          const eraseLines = Math.max(0, actualLength - output.length);
+
+          hook.erase(eraseLines);
+          previousLinesToOverwrite = Math.max(0, actualLength - eraseLines);
         }
 
-        hook.write(output.join(Terminal.EOL) + Terminal.EOL);
+        hook.overwrite(output, previousLinesToOverwrite);
         this.#lastLength = outside ? outside + output.length + 1 : output.length;
         this.#outside = Math.max(this.lastLength - height, this.outside);
       }
